@@ -56,10 +56,10 @@
     {
       "id": "1",
       "userId": 1,
-      "lastMessage": "Are you gonna visit there?",
+      "lastMessage": "Where are u 🤨🤨",
       "status": "typing...",
       "time": "2025-09-18T10:05:00Z",
-      "lastTimestamp": "2025-09-18T13:04:35.506Z"
+      "lastTimestamp": "2025-09-18T13:21:28.305Z"
     },
     {
       "id": "2",
@@ -257,6 +257,13 @@
       "senderId": 999,
       "text": "Are you gonna visit there?",
       "timestamp": "2025-09-18T13:04:35.486Z"
+    },
+    {
+      "id": "c6aa",
+      "chatId": "1",
+      "senderId": 999,
+      "text": "Where are u 🤨🤨",
+      "timestamp": "2025-09-18T13:21:28.286Z"
     }
   ]
 }
