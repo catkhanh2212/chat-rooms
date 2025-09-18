@@ -69,9 +69,9 @@ function ChatRooms() {
                 }}
                 sx={{
                     my: 2,
-                    backgroundColor: "#e9eff6", // nền
-                    borderRadius: "50px",       // bo tròn
-                    "& fieldset": { border: "none" }, // bỏ viền mặc định
+                    backgroundColor: "#e9eff6",
+                    borderRadius: "50px", 
+                    "& fieldset": { border: "none" }, 
                     input: { color: "grey.700", fontSize: 14 },
                 }}
             />

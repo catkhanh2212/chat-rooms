@@ -1,12 +1,52 @@
+'use client'
+
+import { useChatUserStore } from '@/app/store/chatUserStore'
 import { Box } from '@mui/material'
-import React from 'react'
+import axios from 'axios'
+import React, { useEffect, useState } from 'react'
+import Message from './ChatSection/Message'
+
+interface Message {
+    id: number;
+    chatId: number;
+    senderId: number;
+    text: string;
+    timestamp: string;
+}
 
 function ChatSection() {
-  return (
-    <Box sx={{}}>
-        
-    </Box>
-  )
+    const chatUserId = useChatUserStore((state) => state.chatUserId)
+    const [messages, setMessages] = useState<Message[]>([])
+    const [mounted, setMounted] = useState(false)
+
+    useEffect(() => {
+        setMounted(true) 
+      }, [])
+    
+      useEffect(() => {
+        if (!chatUserId) return
+        const fetchMessages = async () => {
+          try {
+            const res = await axios.get<Message[]>(`http://localhost:3001/messages?chatId=${chatUserId}`)
+            setMessages(res.data)
+          } catch (err) {
+            console.error("Error fetching messages:", err)
+          }
+        }
+        fetchMessages()
+      }, [chatUserId])
+    
+      if (!mounted) {
+        return <Box sx={{ backgroundColor: '#191919', height: '100%' }} />
+      }
+
+    return (
+        <Box sx={{ backgroundColor: '#191919', height: '100%', p: 4 }}>
+            {messages.map((message) => (
+                <Message key={message.id} chatId={message.chatId} id={message.id} senderId={message.senderId} text={message.text} timestamp={message.timestamp} />
+            ))}
+        </Box>
+    )
 }
 
 export default ChatSection
