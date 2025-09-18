@@ -5,6 +5,7 @@ import { Box, InputAdornment, TextField, Typography } from '@mui/material'
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import ChatCard from './ChatCard';
+import { useChatUserStore } from '@/app/store/chatUserStore';
 
 interface User {
     id: number;
@@ -23,6 +24,7 @@ interface Chat {
 
 function ChatRooms() {
     const [chats, setChats] = useState<(Chat & { user?: User })[]>([])
+    const refreshMessages = useChatUserStore((state) => state.refreshMessages)
 
     useEffect(() => {
         const fetchData = async () => {
@@ -32,7 +34,7 @@ function ChatRooms() {
                     axios.get<Chat[]>("http://localhost:3001/chats"),
                 ])
 
-                // merge user vào chat
+                
                 const merged = chatsRes.data.map(chat => {
                     const user = usersRes.data.find(u => String(u.id) === String(chat.userId))
                     return { ...chat, user }
@@ -48,7 +50,7 @@ function ChatRooms() {
         }
 
         fetchData()
-    }, [])
+    }, [refreshMessages])
     return (
         <Box sx={{ display: 'flex', flexDirection: 'column', height: '100%', p: 2, backgroundColor: '#212121' }}>
             <Box sx={{ display: 'flex', alignItems: 'center' }}>

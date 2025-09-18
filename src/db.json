@@ -1,55 +1,262 @@
 {
-    "users": [
-      { "id": 1, "name": "Jasmine Thompson", "avatar": "/avatars/1.png" },
-      { "id": 2, "name": "Konstantin Frank", "avatar": "/avatars/2.png", "verified": true },
-      { "id": 3, "name": "Mathias Devos", "avatar": "/avatars/3.png" },
-      { "id": 4, "name": "Marie George", "avatar": "/avatars/4.png" },
-      { "id": 5, "name": "Phillip Burke", "avatar": "/avatars/5.png" },
-      { "id": 6, "name": "Romy Schulte", "avatar": "/avatars/6.png" },
-      { "id": 7, "name": "Frances Arnold", "avatar": "/avatars/7.png" },
-      { "id": 8, "name": "Nina Dubois", "avatar": "/avatars/8.png" },
-      { "id": 9, "name": "Albert Henderson", "avatar": "/avatars/9.png" },
-      { "id": 999, "name": "Me", "avatar": "/avatar.png" }
-    ],
-    "chats": [
-      { "id": 1, "userId": 1, "lastMessage": "Had they visited Rome before", "status": "typing...", "time": "2025-09-18T10:05:00Z" },
-      { "id": 2, "userId": 2, "lastMessage": "Liked that disco music", "time": "2025-09-17T11:35:00Z" },
-      { "id": 3, "userId": 3, "lastMessage": "Hey, how's it going?", "time": "2025-09-16T14:25:00Z" },
-      { "id": 4, "userId": 4, "lastMessage": "Same here. I've been trying to k...", "time": "2025-09-15T09:05:00Z" },
-      { "id": 5, "userId": 5, "lastMessage": "It's been really fun so far", "time": "2025-09-14T08:10:00Z" },
-      { "id": 6, "userId": 6, "lastMessage": "That's cool!", "time": "2025-09-10T18:00:00Z" },
-      { "id": 7, "userId": 7, "lastMessage": "Yeah, I’ve been trying to paint", "time": "2025-09-05T16:10:00Z" },
-      { "id": 8, "userId": 8, "lastMessage": "That’s awesome! I’d love to see", "time": "2025-08-18T14:00:00Z" },
-      { "id": 9, "userId": 9, "lastMessage": "Sounds good to me", "time": "2025-07-18T12:05:00Z" }
-    ],
-    "messages": [
-      { "id": 1, "chatId": 1, "senderId": 1, "text": "Hey, are you free?", "timestamp": "2025-09-18T10:00:00Z" },
-      { "id": 2, "chatId": 1, "senderId": 999, "text": "Yes, tell me!", "timestamp": "2025-09-18T10:02:00Z" },
-      { "id": 3, "chatId": 1, "senderId": 1, "text": "Had they visited Rome before?", "timestamp": "2025-09-18T10:05:00Z" },
-  
-      { "id": 4, "chatId": 2, "senderId": 999, "text": "Did you like the song?", "timestamp": "2025-09-17T11:30:00Z" },
-      { "id": 5, "chatId": 2, "senderId": 2, "text": "Yeah! Disco is awesome!", "timestamp": "2025-09-17T11:31:00Z" },
-      { "id": 6, "chatId": 2, "senderId": 2, "text": "I even bought some vinyls.", "timestamp": "2025-09-17T11:35:00Z" },
-  
-      { "id": 7, "chatId": 3, "senderId": 3, "text": "Hey, how's it going?", "timestamp": "2025-09-16T14:20:00Z" },
-      { "id": 8, "chatId": 3, "senderId": 999, "text": "All good, just busy coding.", "timestamp": "2025-09-16T14:22:00Z" },
-      { "id": 9, "chatId": 3, "senderId": 3, "text": "Haha same here.", "timestamp": "2025-09-16T14:25:00Z" },
-  
-      { "id": 10, "chatId": 4, "senderId": 4, "text": "Same here. I’ve been trying to keep up with work.", "timestamp": "2025-09-15T09:00:00Z" },
-      { "id": 11, "chatId": 4, "senderId": 999, "text": "Yeah, burnout is real!", "timestamp": "2025-09-15T09:05:00Z" },
-  
-      { "id": 12, "chatId": 5, "senderId": 5, "text": "It’s been really fun so far.", "timestamp": "2025-09-14T08:00:00Z" },
-      { "id": 13, "chatId": 5, "senderId": 999, "text": "Nice! What have you been up to?", "timestamp": "2025-09-14T08:10:00Z" },
-  
-      { "id": 14, "chatId": 6, "senderId": 6, "text": "That’s cool!", "timestamp": "2025-09-10T18:00:00Z" },
-  
-      { "id": 15, "chatId": 7, "senderId": 7, "text": "Yeah, I’ve been trying to paint.", "timestamp": "2025-09-05T16:00:00Z" },
-      { "id": 16, "chatId": 7, "senderId": 999, "text": "Show me some pictures later!", "timestamp": "2025-09-05T16:10:00Z" },
-  
-      { "id": 17, "chatId": 8, "senderId": 8, "text": "That’s awesome! I’d love to see.", "timestamp": "2025-08-18T14:00:00Z" },
-  
-      { "id": 18, "chatId": 9, "senderId": 9, "text": "Sounds good to me.", "timestamp": "2025-07-18T12:00:00Z" },
-      { "id": 19, "chatId": 9, "senderId": 999, "text": "Cool, let’s do it.", "timestamp": "2025-07-18T12:05:00Z" }
-    ]
-  }
-  
+  "users": [
+    {
+      "id": "1",
+      "name": "Jasmine Thompson",
+      "avatar": "/avatars/1.png"
+    },
+    {
+      "id": "2",
+      "name": "Konstantin Frank",
+      "avatar": "/avatars/2.png",
+      "verified": true
+    },
+    {
+      "id": "3",
+      "name": "Mathias Devos",
+      "avatar": "/avatars/3.png"
+    },
+    {
+      "id": "4",
+      "name": "Marie George",
+      "avatar": "/avatars/4.png"
+    },
+    {
+      "id": "5",
+      "name": "Phillip Burke",
+      "avatar": "/avatars/5.png"
+    },
+    {
+      "id": "6",
+      "name": "Romy Schulte",
+      "avatar": "/avatars/6.png"
+    },
+    {
+      "id": "7",
+      "name": "Frances Arnold",
+      "avatar": "/avatars/7.png"
+    },
+    {
+      "id": "8",
+      "name": "Nina Dubois",
+      "avatar": "/avatars/8.png"
+    },
+    {
+      "id": "9",
+      "name": "Albert Henderson",
+      "avatar": "/avatars/9.png"
+    },
+    {
+      "id": "999",
+      "name": "Me",
+      "avatar": "/avatar.png"
+    }
+  ],
+  "chats": [
+    {
+      "id": "1",
+      "userId": 1,
+      "lastMessage": "Are you gonna visit there?",
+      "status": "typing...",
+      "time": "2025-09-18T10:05:00Z",
+      "lastTimestamp": "2025-09-18T13:04:35.506Z"
+    },
+    {
+      "id": "2",
+      "userId": 2,
+      "lastMessage": "Liked that disco music",
+      "time": "2025-09-17T11:35:00Z"
+    },
+    {
+      "id": "3",
+      "userId": 3,
+      "lastMessage": "Hey, how's it going?",
+      "time": "2025-09-16T14:25:00Z"
+    },
+    {
+      "id": "4",
+      "userId": 4,
+      "lastMessage": "Same here. I've been trying to k...",
+      "time": "2025-09-15T09:05:00Z"
+    },
+    {
+      "id": "5",
+      "userId": 5,
+      "lastMessage": "It's been really fun so far",
+      "time": "2025-09-14T08:10:00Z"
+    },
+    {
+      "id": "6",
+      "userId": 6,
+      "lastMessage": "That's cool!",
+      "time": "2025-09-10T18:00:00Z"
+    },
+    {
+      "id": "7",
+      "userId": 7,
+      "lastMessage": "Yeah, I’ve been trying to paint",
+      "time": "2025-09-05T16:10:00Z"
+    },
+    {
+      "id": "8",
+      "userId": 8,
+      "lastMessage": "That’s awesome! I’d love to see",
+      "time": "2025-08-18T14:00:00Z"
+    },
+    {
+      "id": "9",
+      "userId": 9,
+      "lastMessage": "Sounds good to me",
+      "time": "2025-07-18T12:05:00Z"
+    }
+  ],
+  "messages": [
+    {
+      "id": "1",
+      "chatId": 1,
+      "senderId": 1,
+      "text": "Hey, are you free?",
+      "timestamp": "2025-09-18T10:00:00Z"
+    },
+    {
+      "id": "2",
+      "chatId": 1,
+      "senderId": 999,
+      "text": "Yes, tell me!",
+      "timestamp": "2025-09-18T10:02:00Z"
+    },
+    {
+      "id": "3",
+      "chatId": 1,
+      "senderId": 1,
+      "text": "Had they visited Rome before?",
+      "timestamp": "2025-09-18T10:05:00Z"
+    },
+    {
+      "id": "4",
+      "chatId": 2,
+      "senderId": 999,
+      "text": "Did you like the song?",
+      "timestamp": "2025-09-17T11:30:00Z"
+    },
+    {
+      "id": "5",
+      "chatId": 2,
+      "senderId": 2,
+      "text": "Yeah! Disco is awesome!",
+      "timestamp": "2025-09-17T11:31:00Z"
+    },
+    {
+      "id": "6",
+      "chatId": 2,
+      "senderId": 2,
+      "text": "I even bought some vinyls.",
+      "timestamp": "2025-09-17T11:35:00Z"
+    },
+    {
+      "id": "7",
+      "chatId": 3,
+      "senderId": 3,
+      "text": "Hey, how's it going?",
+      "timestamp": "2025-09-16T14:20:00Z"
+    },
+    {
+      "id": "8",
+      "chatId": 3,
+      "senderId": 999,
+      "text": "All good, just busy coding.",
+      "timestamp": "2025-09-16T14:22:00Z"
+    },
+    {
+      "id": "9",
+      "chatId": 3,
+      "senderId": 3,
+      "text": "Haha same here.",
+      "timestamp": "2025-09-16T14:25:00Z"
+    },
+    {
+      "id": "10",
+      "chatId": 4,
+      "senderId": 4,
+      "text": "Same here. I’ve been trying to keep up with work.",
+      "timestamp": "2025-09-15T09:00:00Z"
+    },
+    {
+      "id": "11",
+      "chatId": 4,
+      "senderId": 999,
+      "text": "Yeah, burnout is real!",
+      "timestamp": "2025-09-15T09:05:00Z"
+    },
+    {
+      "id": "12",
+      "chatId": 5,
+      "senderId": 5,
+      "text": "It’s been really fun so far.",
+      "timestamp": "2025-09-14T08:00:00Z"
+    },
+    {
+      "id": "13",
+      "chatId": 5,
+      "senderId": 999,
+      "text": "Nice! What have you been up to?",
+      "timestamp": "2025-09-14T08:10:00Z"
+    },
+    {
+      "id": "14",
+      "chatId": 6,
+      "senderId": 6,
+      "text": "That’s cool!",
+      "timestamp": "2025-09-10T18:00:00Z"
+    },
+    {
+      "id": "15",
+      "chatId": 7,
+      "senderId": 7,
+      "text": "Yeah, I’ve been trying to paint.",
+      "timestamp": "2025-09-05T16:00:00Z"
+    },
+    {
+      "id": "16",
+      "chatId": 7,
+      "senderId": 999,
+      "text": "Show me some pictures later!",
+      "timestamp": "2025-09-05T16:10:00Z"
+    },
+    {
+      "id": "17",
+      "chatId": 8,
+      "senderId": 8,
+      "text": "That’s awesome! I’d love to see.",
+      "timestamp": "2025-08-18T14:00:00Z"
+    },
+    {
+      "id": "18",
+      "chatId": 9,
+      "senderId": 9,
+      "text": "Sounds good to me.",
+      "timestamp": "2025-07-18T12:00:00Z"
+    },
+    {
+      "id": "19",
+      "chatId": 9,
+      "senderId": 999,
+      "text": "Cool, let’s do it.",
+      "timestamp": "2025-07-18T12:05:00Z"
+    },
+    {
+      "id": "899a",
+      "chatId": "1",
+      "senderId": 999,
+      "text": "Maybe. I dont't know",
+      "timestamp": "2025-09-18T12:51:17.625Z"
+    },
+    {
+      "id": "5198",
+      "chatId": "1",
+      "senderId": 999,
+      "text": "Are you gonna visit there?",
+      "timestamp": "2025-09-18T13:04:35.486Z"
+    }
+  ]
+}

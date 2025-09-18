@@ -39,7 +39,7 @@ function Message({  senderId, text, timestamp }: MessageProps) {
             </Typography>
 
             {senderId !== selfId && (
-                <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, my: 2 }}>
                     <Avatar src={senderAvatar ?? "/default.png"} alt="avatar" />
                     <Box sx={{ p: 2, backgroundColor: '#212121', borderRadius: 2 }}>
                         <Typography sx={{ color: 'white', ml: 1 }}>{text}</Typography>
@@ -49,7 +49,7 @@ function Message({  senderId, text, timestamp }: MessageProps) {
             )}
 
             {senderId == selfId && (
-                <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: 2 }}>
+                <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: 2, my: 2 }}>
                     <Box sx={{ p: 2, backgroundColor: 'white', borderRadius: 2 }}>
                         <Typography sx={{ color: 'black', ml: 1 }}>{text}</Typography>
                     </Box>

@@ -2,6 +2,7 @@ import Box from '@mui/material/Box';
 import Header from "./components/Header";
 import ChatRooms from './components/ChatRooms/ChatRooms';
 import ChatScreen from './components/ChatSreen.tsx/ChatScreen';
+import Info from './components/Info/Info';
 
 export default function Home() {
   return (
@@ -13,11 +14,12 @@ export default function Home() {
           <ChatRooms />
         </Box>
 
-        <Box sx={{ width: '55%', display: 'flex', flexDirection: 'column', minHeight: 0 }}>
+        <Box sx={{ width: '52.5%', display: 'flex', flexDirection: 'column', minHeight: 0 }}>
           <ChatScreen />
         </Box>
 
-        <Box sx={{ width: '20%' }}>
+        <Box sx={{ width: '22.5%' }}>
+          <Info />
         </Box>
       </Box>
     </Box>
