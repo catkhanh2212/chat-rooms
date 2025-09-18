@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 'use client'
 
 import { Avatar, Box, Typography } from '@mui/material'
@@ -11,9 +12,10 @@ interface MessageProps {
     senderId: number;
     text: string;
     timestamp: string;
+    image: string;
 }
 
-function Message({  senderId, text, timestamp }: MessageProps) {
+function Message({ senderId, text, image, timestamp }: MessageProps) {
     const selfId = 999
     const [senderAvatar, setSenderAvatar] = useState<string | null>(null)
 
@@ -33,7 +35,7 @@ function Message({  senderId, text, timestamp }: MessageProps) {
     }, [senderId])
 
     return (
-        <Box sx={{ py: 2}}>
+        <Box sx={{ py: 2 }}>
             <Typography sx={{ textAlign: 'center', color: '#F5F7F8' }}>
                 {formatDate(timestamp)}
             </Typography>
@@ -43,6 +45,15 @@ function Message({  senderId, text, timestamp }: MessageProps) {
                     <Avatar src={senderAvatar ?? "/default.png"} alt="avatar" />
                     <Box sx={{ p: 2, backgroundColor: '#212121', borderRadius: 2 }}>
                         <Typography sx={{ color: 'white', ml: 1 }}>{text}</Typography>
+
+                        {image && (
+                            <img
+                                src={image}
+                                alt="uploaded"
+                                style={{ maxWidth: "200px", borderRadius: "8px" }}
+                            />
+                        )}
+
                     </Box>
 
                 </Box>
@@ -51,7 +62,18 @@ function Message({  senderId, text, timestamp }: MessageProps) {
             {senderId == selfId && (
                 <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: 2, my: 2 }}>
                     <Box sx={{ p: 2, backgroundColor: 'white', borderRadius: 2 }}>
-                        <Typography sx={{ color: 'black', ml: 1 }}>{text}</Typography>
+                        {text !== '[Image]' && (
+                            <Typography sx={{ color: 'black', ml: 1 }}>{text}</Typography>
+                        )}
+
+
+                        {image && (
+                            <img
+                                src={image}
+                                alt="uploaded"
+                                style={{ maxWidth: "200px", borderRadius: "8px" }}
+                            />
+                        )}
                     </Box>
                     <Avatar src={senderAvatar ?? "/default.png"} alt="avatar" />
                 </Box>

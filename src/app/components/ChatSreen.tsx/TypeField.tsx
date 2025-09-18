@@ -16,6 +16,7 @@ function TypeField() {
     const [showEmoji, setShowEmoji] = useState(false)
     const fileInputRef = useRef<HTMLInputElement | null>(null)
 
+    // Gửi text message
     const handleSend = async () => {
         if (!text.trim()) return
         try {
@@ -31,13 +32,13 @@ function TypeField() {
                 lastTimestamp: new Date().toISOString(),
             })
 
-
             setText('')
-            triggerRefresh() 
+            triggerRefresh()
         } catch (err) {
             console.error('Error sending message:', err)
         }
     }
+
 
     const handleOpenFilePicker = () => {
         fileInputRef.current?.click()
@@ -47,26 +48,31 @@ function TypeField() {
         if (e.target.files && e.target.files[0]) {
             const file = e.target.files[0]
             const reader = new FileReader()
-            reader.onload = async () => {
-                const imageBase64 = reader.result as string
+
+            reader.onloadend = async () => {
+                const base64Image = reader.result as string // data:image/png;base64,...
+
                 try {
                     await axios.post('http://localhost:3001/messages', {
                         chatId: chatUserId,
                         senderId: selfId,
                         text: '[Image]',
-                        image: imageBase64, // gửi kèm base64
+                        image: base64Image,
                         timestamp: new Date().toISOString(),
                     })
+
                     await axios.patch(`http://localhost:3001/chats/${chatUserId}`, {
                         lastMessage: '[Image]',
                         lastTimestamp: new Date().toISOString(),
                     })
+
                     triggerRefresh()
                 } catch (err) {
                     console.error('Error sending image:', err)
                 }
             }
-            reader.readAsDataURL(file)
+
+            reader.readAsDataURL(file) // convert sang base64
         }
     }
 
@@ -74,17 +80,37 @@ function TypeField() {
         setText((prev) => prev + emojiData.emoji)
     }
 
-
     return (
-        <Box sx={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between', p: 2, backgroundColor: '#222222', gap: 1 }}>
+        <Box
+            sx={{
+                width: '100%',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                p: 2,
+                backgroundColor: '#222222',
+                gap: 1,
+                position: 'relative',
+            }}
+        >
             <IconButton onClick={handleOpenFilePicker}>
                 <InsertPhoto sx={{ color: '#F5F5F5' }} />
             </IconButton>
 
+            <input
+                type="file"
+                accept="image/*"
+                style={{ display: 'none' }}
+                ref={fileInputRef}
+                onChange={handleFileChange}
+            />
+
+            {/* Emoji Picker toggle */}
             <IconButton onClick={() => setShowEmoji((prev) => !prev)}>
                 <EmojiEmotions sx={{ color: '#F5F5F5' }} />
             </IconButton>
 
+            {/* Text Input */}
             <TextField
                 placeholder="Your message here..."
                 variant="outlined"
@@ -107,17 +133,18 @@ function TypeField() {
                 }}
             />
 
-            <IconButton>
+            {/* Send Button */}
+            <IconButton onClick={handleSend}>
                 <Send sx={{ color: '#F5F5F5' }} />
             </IconButton>
 
+            {/* Emoji Picker */}
             {showEmoji && (
-                 <ClickAwayListener onClickAway={() => setShowEmoji(false)}>
+                <ClickAwayListener onClickAway={() => setShowEmoji(false)}>
                     <Box sx={{ position: 'absolute', bottom: '60px', left: '50px', zIndex: 1000 }}>
-                    <EmojiPicker onEmojiClick={handleEmojiClick} />
-                </Box>
-                 </ClickAwayListener>
-                
+                        <EmojiPicker onEmojiClick={handleEmojiClick} />
+                    </Box>
+                </ClickAwayListener>
             )}
         </Box>
     )
