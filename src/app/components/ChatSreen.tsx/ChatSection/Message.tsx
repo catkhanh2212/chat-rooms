@@ -61,9 +61,9 @@ function Message({ senderId, text, image, timestamp }: MessageProps) {
 
             {senderId == selfId && (
                 <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: 2, my: 2 }}>
-                    <Box sx={{ p: 2, backgroundColor: 'white', borderRadius: 2 }}>
+                    <Box sx={{ p: 2, backgroundColor: '#799EFF', borderRadius: 2 }}>
                         {text !== '[Image]' && (
-                            <Typography sx={{ color: 'black', ml: 1 }}>{text}</Typography>
+                            <Typography sx={{ color: 'white', ml: 1 }}>{text}</Typography>
                         )}
 
 

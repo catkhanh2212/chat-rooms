@@ -4,6 +4,7 @@ import { useChatUserStore } from '@/app/store/chatUserStore'
 import { Avatar, Box, Typography } from '@mui/material'
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
+import FileList from './FileList'
 
 interface User {
     id: number;
@@ -37,12 +38,20 @@ function Info() {
     }, [chatUserId])
     return (
 
-        <Box sx={{ display: 'flex', flexDirection: 'column', height: '100%', p: 2, backgroundColor: '#212121' }}>
-            <Box sx={{ display: 'flex', justifyContent: 'center', p: 4 }}>
-                <Avatar src={user?.avatar} alt='avatar' sx={{ width: '72px', height: '72px' }} />
+        <Box sx={{ display: 'flex', flexDirection: 'column', height: '100%', backgroundColor: '#1E201E' }}>
+            <Box sx={{ p: 4 }}>
+                <Box sx={{ display: 'flex', justifyContent: 'center', p: 4 }}>
+                    <Avatar src={user?.avatar} alt='avatar' sx={{ width: '72px', height: '72px' }} />
+                </Box>
+
+                <Typography sx={{ color: 'white', fontSize: '20px', fontWeight: 'bold', textAlign: 'center', mb: 2 }}> {user?.name} </Typography>
             </Box>
 
-            <Typography sx={{ color: 'white', fontSize: '20px', fontWeight: 'bold', textAlign: 'center' }}> {user?.name} </Typography>
+
+
+            <Box sx={{ flex: 1 }}>
+                <FileList />
+            </Box>
         </Box>
     )
 }
