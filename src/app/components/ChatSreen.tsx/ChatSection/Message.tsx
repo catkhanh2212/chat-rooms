@@ -1,85 +1,130 @@
 /* eslint-disable @next/next/no-img-element */
 'use client'
 
-import { Avatar, Box, Typography } from '@mui/material'
+import { Avatar, Box, Typography, Dialog, IconButton } from '@mui/material'
+import DownloadIcon from '@mui/icons-material/Download'
+import CloseIcon from '@mui/icons-material/Close'
 import React, { useEffect, useState } from 'react'
 import { formatDate } from "../../../utils/formatDate";
 import axios from 'axios';
 
 interface MessageProps {
-    id: number;
-    chatId: number;
-    senderId: number;
-    text: string;
-    timestamp: string;
-    image: string;
+  id: number;
+  chatId: number;
+  senderId: number;
+  text: string;
+  timestamp: string;
+  image: string;
 }
 
 function Message({ senderId, text, image, timestamp }: MessageProps) {
-    const selfId = 999
-    const [senderAvatar, setSenderAvatar] = useState<string | null>(null)
+  const selfId = 999
+  const [senderAvatar, setSenderAvatar] = useState<string | null>(null)
+  const [selectedImg, setSelectedImg] = useState<string | null>(null)
 
-    useEffect(() => {
-        const fetchSenderAvatar = async () => {
-            try {
-                const res = await axios.get<{ id: number; name: string; avatar: string }>(
-                    `http://localhost:3001/users/${senderId}`
-                )
-                setSenderAvatar(res.data.avatar)
-            } catch (err) {
-                console.error("Error fetching user:", err)
-            }
-        }
+  useEffect(() => {
+    const fetchSenderAvatar = async () => {
+      try {
+        const res = await axios.get<{ id: number; name: string; avatar: string }>(
+          `http://localhost:3001/users/${senderId}`
+        )
+        setSenderAvatar(res.data.avatar)
+      } catch (err) {
+        console.error("Error fetching user:", err)
+      }
+    }
 
-        fetchSenderAvatar()
-    }, [senderId])
+    fetchSenderAvatar()
+  }, [senderId])
 
-    return (
-        <Box sx={{ py: 2 }}>
-            <Typography sx={{ textAlign: 'center', color: '#F5F7F8' }}>
-                {formatDate(timestamp)}
-            </Typography>
+  const handleDownload = (url: string) => {
+    const a = document.createElement("a")
+    a.href = url
+    a.download = "image.jpg"
+    a.click()
+  }
 
-            {senderId !== selfId && (
-                <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, my: 2 }}>
-                    <Avatar src={senderAvatar ?? "/default.png"} alt="avatar" />
-                    <Box sx={{ p: 2, backgroundColor: '#212121', borderRadius: 2 }}>
-                        <Typography sx={{ color: 'white', ml: 1 }}>{text}</Typography>
+  return (
+    <Box sx={{ py: 2 }}>
+      <Typography sx={{ textAlign: 'center', color: '#F5F7F8' }}>
+        {formatDate(timestamp)}
+      </Typography>
 
-                        {image && (
-                            <img
-                                src={image}
-                                alt="uploaded"
-                                style={{ maxWidth: "200px", borderRadius: "8px" }}
-                            />
-                        )}
 
-                    </Box>
-
-                </Box>
+      {senderId !== selfId && (
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, my: 2 }}>
+          <Avatar src={senderAvatar ?? "/default.png"} alt="avatar" />
+          <Box sx={{ p: 2, backgroundColor: '#212121', borderRadius: 2 }}>
+            <Typography sx={{ color: 'white', ml: 1 }}>{text}</Typography>
+            {image && (
+              <img
+                src={image}
+                alt="uploaded"
+                style={{ maxWidth: "200px", borderRadius: "8px", cursor: "pointer" }}
+                onClick={() => setSelectedImg(image)}
+              />
             )}
-
-            {senderId == selfId && (
-                <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: 2, my: 2 }}>
-                    <Box sx={{ p: 2, backgroundColor: '#799EFF', borderRadius: 2 }}>
-                        {text !== '[Image]' && (
-                            <Typography sx={{ color: 'white', ml: 1 }}>{text}</Typography>
-                        )}
-
-
-                        {image && (
-                            <img
-                                src={image}
-                                alt="uploaded"
-                                style={{ maxWidth: "200px", borderRadius: "8px" }}
-                            />
-                        )}
-                    </Box>
-                    <Avatar src={senderAvatar ?? "/default.png"} alt="avatar" />
-                </Box>
-            )}
+          </Box>
         </Box>
-    )
+      )}
+
+
+      {senderId === selfId && (
+        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: 2, my: 2 }}>
+          <Box sx={{ p: 2, backgroundColor: '#799EFF', borderRadius: 2 }}>
+            {text !== '[Image]' && (
+              <Typography sx={{ color: 'white', ml: 1 }}>{text}</Typography>
+            )}
+            {image && (
+              <img
+                src={image}
+                alt="uploaded"
+                style={{ maxWidth: "200px", borderRadius: "8px", cursor: "pointer" }}
+                onClick={() => setSelectedImg(image)}
+              />
+            )}
+          </Box>
+          <Avatar src={senderAvatar ?? "/default.png"} alt="avatar" />
+        </Box>
+      )}
+
+      <Dialog
+        open={!!selectedImg}
+        onClose={() => setSelectedImg(null)}
+        maxWidth="lg"
+        PaperProps={{
+          sx: {
+            backgroundColor: 'transparent',
+            boxShadow: 'none',
+          },
+        }}
+      >
+        {selectedImg && (
+          <Box sx={{ position: 'relative', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            <img
+              src={selectedImg}
+              alt="full"
+              style={{ maxWidth: '90vw', maxHeight: '90vh', borderRadius: '8px' }}
+            />
+
+            <IconButton
+              onClick={() => handleDownload(selectedImg)}
+              sx={{ position: 'absolute', bottom: 16, right: 16, color: 'white', bgcolor: 'rgba(0,0,0,0.5)' }}
+            >
+              <DownloadIcon />
+            </IconButton>
+
+            <IconButton
+              onClick={() => setSelectedImg(null)}
+              sx={{ position: 'absolute', top: 16, right: 16, color: 'white', bgcolor: 'rgba(0,0,0,0.5)' }}
+            >
+              <CloseIcon />
+            </IconButton>
+          </Box>
+        )}
+      </Dialog>
+    </Box>
+  )
 }
 
 export default Message

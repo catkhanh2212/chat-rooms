@@ -5,7 +5,6 @@ import { useChatUserStore } from '@/app/store/chatUserStore'
 import { Box, Typography, Dialog, IconButton } from '@mui/material'
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import CloseIcon from '@mui/icons-material/Close'
 import DownloadIcon from '@mui/icons-material/Download'
 
 interface Message {
@@ -42,7 +41,6 @@ function FileList() {
     fetchMessages()
   }, [chatUserId])
 
-  // Hàm download ảnh
   const handleDownload = (url: string) => {
     const link = document.createElement('a')
     link.href = url
@@ -68,7 +66,6 @@ function FileList() {
         ))}
       </Box>
 
-      {/* Modal phóng to ảnh */}
       <Dialog
         open={!!selectedImg}
         onClose={() => setSelectedImg(null)}
