@@ -46,35 +46,60 @@ function TypeField() {
 
     const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files && e.target.files[0]) {
-            const file = e.target.files[0]
-            const reader = new FileReader()
-
-            reader.onloadend = async () => {
-                const base64Image = reader.result as string // data:image/png;base64,...
-
-                try {
-                    await axios.post('http://localhost:3001/messages', {
-                        chatId: chatUserId,
-                        senderId: selfId,
-                        text: '[Image]',
-                        image: base64Image,
-                        timestamp: new Date().toISOString(),
-                    })
-
-                    await axios.patch(`http://localhost:3001/chats/${chatUserId}`, {
-                        lastMessage: '[Image]',
-                        lastTimestamp: new Date().toISOString(),
-                    })
-
-                    triggerRefresh()
-                } catch (err) {
-                    console.error('Error sending image:', err)
-                }
+          const file = e.target.files[0]
+      
+          try {
+            const formData = new FormData()
+            formData.append("file", file)
+            formData.append("upload_preset", "chat-unsigned")
+      
+            // xác định resource_type cho Cloudinary
+            let resourceType: "image" | "video" | "raw" = "raw"
+            if (file.type.startsWith("image/")) resourceType = "image"
+            else if (file.type.startsWith("video/")) resourceType = "video"
+      
+            // Gọi API Cloudinary
+            const uploadRes = await axios.post(
+              `https://api.cloudinary.com/v1_1/difopsd0p/${resourceType}/upload`,
+              formData
+            )
+      
+            const fileUrl = uploadRes.data.secure_url
+      
+            // xác định text hiển thị
+            let displayText = "[File]"
+            if (resourceType === "image") displayText = "[Image]"
+            else if (resourceType === "video") displayText = "[Video]"
+            else {
+              // với file raw thì dựa theo extension
+              if (file.name.endsWith(".pdf")) displayText = "[PDF]"
+              else if (file.name.endsWith(".doc") || file.name.endsWith(".docx"))
+                displayText = "[Document]"
             }
-
-            reader.readAsDataURL(file) // convert sang base64
+      
+            // Lưu message vào db.json
+            await axios.post("http://localhost:3001/messages", {
+              chatId: chatUserId,
+              senderId: selfId,
+              text: displayText,
+              fileUrl, // link file Cloudinary
+              fileType: resourceType, // lưu thêm để client dễ phân biệt
+              timestamp: new Date().toISOString(),
+            })
+      
+            await axios.patch(`http://localhost:3001/chats/${chatUserId}`, {
+              lastMessage: displayText,
+              lastTimestamp: new Date().toISOString(),
+            })
+      
+            triggerRefresh()
+          } catch (err) {
+            console.error("Error uploading to Cloudinary:", err)
+          }
         }
-    }
+      }
+      
+
 
     const handleEmojiClick = (emojiData: EmojiClickData) => {
         setText((prev) => prev + emojiData.emoji)
@@ -99,11 +124,11 @@ function TypeField() {
 
             <input
                 type="file"
-                accept="image/*"
                 style={{ display: 'none' }}
                 ref={fileInputRef}
                 onChange={handleFileChange}
             />
+
 
             {/* Emoji Picker toggle */}
             <IconButton onClick={() => setShowEmoji((prev) => !prev)}>

@@ -12,8 +12,10 @@ interface Message {
   senderId: number;
   text: string;
   timestamp: string;
-  image: string
+  fileUrl?: string; 
+  fileType?: "image" | "video" | "raw"; 
 }
+
 
 function ChatSection() {
   const chatUserId = useChatUserStore((state) => state.chatUserId)
@@ -60,7 +62,15 @@ function ChatSection() {
       },
     }}>
       {messages.map((message) => (
-        <Message key={message.id} chatId={message.chatId} id={message.id} senderId={message.senderId} text={message.text} image={message.image} timestamp={message.timestamp} />
+        <Message
+          key={message.id}
+          chatId={message.chatId}
+          id={message.id}
+          senderId={message.senderId}
+          text={message.text}
+          fileUrl={message.fileUrl}
+          fileType={message.fileType}
+          timestamp={message.timestamp} />
       ))}
     </Box>
   )

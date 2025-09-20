@@ -14,10 +14,12 @@ interface MessageProps {
   senderId: number;
   text: string;
   timestamp: string;
-  image: string;
+  fileUrl?: string;   // Cloudinary secure_url
+  fileType?: "image" | "video" | "raw";
 }
 
-function Message({ senderId, text, image, timestamp }: MessageProps) {
+
+function Message({ senderId, text, fileUrl, fileType, timestamp }: MessageProps) {
   const selfId = 999
   const [senderAvatar, setSenderAvatar] = useState<string | null>(null)
   const [selectedImg, setSelectedImg] = useState<string | null>(null)
@@ -56,13 +58,37 @@ function Message({ senderId, text, image, timestamp }: MessageProps) {
           <Avatar src={senderAvatar ?? "/default.png"} alt="avatar" />
           <Box sx={{ p: 2, backgroundColor: '#212121', borderRadius: 2 }}>
             <Typography sx={{ color: 'white', ml: 1 }}>{text}</Typography>
-            {image && (
+            {/* image */}
+            {fileType === "image" && fileUrl && (
               <img
-                src={image}
+                src={fileUrl}
                 alt="uploaded"
                 style={{ maxWidth: "200px", borderRadius: "8px", cursor: "pointer" }}
-                onClick={() => setSelectedImg(image)}
+                onClick={() => setSelectedImg(fileUrl)}
               />
+            )}
+
+            {/* video */}
+            {fileType === "video" && fileUrl && (
+              <video
+                src={fileUrl}
+                controls
+                style={{ maxWidth: "250px", borderRadius: "8px", cursor: "pointer" }}
+                onClick={(e) => {
+                  e.stopPropagation()
+                  setSelectedImg(fileUrl) // reuse dialog để mở rộng video
+                }}
+              />
+            )}
+
+            {/* raw file */}
+            {fileType === "raw" && fileUrl && (
+              <Box sx={{ display: "flex", alignItems: "center", gap: 1, mt: 1 }}>
+                <DownloadIcon sx={{ color: "white" }} />
+                <a href={fileUrl} target="_blank" rel="noopener noreferrer" style={{ color: "white", textDecoration: "underline" }}>
+                  {text || "Download file"}
+                </a>
+              </Box>
             )}
           </Box>
         </Box>
@@ -72,16 +98,40 @@ function Message({ senderId, text, image, timestamp }: MessageProps) {
       {senderId === selfId && (
         <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: 2, my: 2 }}>
           <Box sx={{ p: 2, backgroundColor: '#799EFF', borderRadius: 2 }}>
-            {text !== '[Image]' && (
+            {text !== '[Image]' && text != '[Video]' && (
               <Typography sx={{ color: 'white', ml: 1 }}>{text}</Typography>
             )}
-            {image && (
+            {/* image */}
+            {fileType === "image" && fileUrl && (
               <img
-                src={image}
+                src={fileUrl}
                 alt="uploaded"
                 style={{ maxWidth: "200px", borderRadius: "8px", cursor: "pointer" }}
-                onClick={() => setSelectedImg(image)}
+                onClick={() => setSelectedImg(fileUrl)}
               />
+            )}
+
+            {/* video */}
+            {fileType === "video" && fileUrl && (
+              <video
+                src={fileUrl}
+                controls
+                style={{ maxWidth: "250px", borderRadius: "8px", cursor: "pointer" }}
+                onClick={(e) => {
+                  e.stopPropagation()
+                  setSelectedImg(fileUrl) // reuse dialog để mở rộng video
+                }}
+              />
+            )}
+
+            {/* raw file */}
+            {fileType === "raw" && fileUrl && (
+              <Box sx={{ display: "flex", alignItems: "center", gap: 1, mt: 1 }}>
+                <DownloadIcon sx={{ color: "white" }} />
+                <a href={fileUrl} target="_blank" rel="noopener noreferrer" style={{ color: "white", textDecoration: "underline" }}>
+                  {text || "Download file"}
+                </a>
+              </Box>
             )}
           </Box>
           <Avatar src={senderAvatar ?? "/default.png"} alt="avatar" />
@@ -101,18 +151,29 @@ function Message({ senderId, text, image, timestamp }: MessageProps) {
       >
         {selectedImg && (
           <Box sx={{ position: 'relative', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-            <img
-              src={selectedImg}
-              alt="full"
-              style={{ maxWidth: '90vw', maxHeight: '90vh', borderRadius: '8px' }}
-            />
+            {selectedImg.endsWith(".mp4") || selectedImg.includes("/video/") ? (
+              <video
+                src={selectedImg}
+                controls
+                style={{ maxWidth: '90vw', maxHeight: '90vh', borderRadius: '8px' }}
+              />
+            ) : (
+              <img
+                src={selectedImg}
+                alt="full"
+                style={{ maxWidth: '90vw', maxHeight: '90vh', borderRadius: '8px' }}
+              />
+            )}
 
-            <IconButton
-              onClick={() => handleDownload(selectedImg)}
-              sx={{ position: 'absolute', bottom: 16, right: 16, color: 'white', bgcolor: 'rgba(0,0,0,0.5)' }}
-            >
-              <DownloadIcon />
-            </IconButton>
+            {fileType !== 'video' && (
+              <IconButton
+                onClick={() => handleDownload(selectedImg)}
+                sx={{ position: 'absolute', bottom: 16, right: 16, color: 'white', bgcolor: 'rgba(0,0,0,0.5)' }}
+              >
+                <DownloadIcon />
+              </IconButton>
+            )}
+
 
             <IconButton
               onClick={() => setSelectedImg(null)}
@@ -123,6 +184,7 @@ function Message({ senderId, text, image, timestamp }: MessageProps) {
           </Box>
         )}
       </Dialog>
+
     </Box>
   )
 }
