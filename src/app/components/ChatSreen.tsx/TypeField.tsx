@@ -29,7 +29,7 @@ function TypeField() {
 
             await axios.patch(`http://localhost:3001/chats/${chatUserId}`, {
                 lastMessage: text.trim(),
-                lastTimestamp: new Date().toISOString(),
+                time: new Date().toISOString(),
             })
 
             setText('')
@@ -86,7 +86,7 @@ function TypeField() {
       
             await axios.patch(`http://localhost:3001/chats/${chatUserId}`, {
               lastMessage: displayText,
-              lastTimestamp: new Date().toISOString(),
+              time: new Date().toISOString(),
             })
       
             triggerRefresh()

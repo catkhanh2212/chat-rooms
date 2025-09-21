@@ -34,11 +34,14 @@ function ChatRooms() {
                     axios.get<Chat[]>("http://localhost:3001/chats"),
                 ])
 
-                
-                const merged = chatsRes.data.map(chat => {
-                    const user = usersRes.data.find(u => String(u.id) === String(chat.userId))
-                    return { ...chat, user }
-                })
+
+                const merged = chatsRes.data
+                    .map(chat => {
+                        const user = usersRes.data.find(u => String(u.id) === String(chat.userId))
+                        return { ...chat, user }
+                    })
+                    .sort((a, b) => new Date(b.time).getTime() - new Date(a.time).getTime())
+
 
 
                 setChats(merged)
@@ -72,8 +75,8 @@ function ChatRooms() {
                 sx={{
                     my: 2,
                     backgroundColor: "#e9eff6",
-                    borderRadius: "50px", 
-                    "& fieldset": { border: "none" }, 
+                    borderRadius: "50px",
+                    "& fieldset": { border: "none" },
                     input: { color: "grey.700", fontSize: 14 },
                 }}
             />
@@ -81,7 +84,7 @@ function ChatRooms() {
             <Box sx={{
                 flex: 1,
                 overflowY: 'auto',
-                pr: 1, 
+                pr: 1,
                 '&::-webkit-scrollbar': {
                     width: '6px',
                 },

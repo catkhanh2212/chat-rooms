@@ -2,8 +2,8 @@
 
 import { Avatar, Box, Typography } from '@mui/material'
 import React from 'react'
-import { calculateDuration } from "../../utils/calculateDuration";
 import { useChatUserStore } from '@/app/store/chatUserStore';
+import { useRelativeTime } from '@/app/hooks/useRelativeTime';
 
 interface ChatCardProps {
     id: number,
@@ -15,6 +15,8 @@ interface ChatCardProps {
 
 function ChatCard({ id, name, image, lastMessage, time }: ChatCardProps) {
     const setChatUserId = useChatUserStore((state) => state.setChatUserId)
+    const duration = useRelativeTime(time) 
+    
 
     return (
         <Box  onClick={() => setChatUserId(id)} sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', p: 2, '&:hover': {backgroundColor: '#1A1A1D'}, cursor: 'pointer', borderRadius: 4 }}>
@@ -28,7 +30,7 @@ function ChatCard({ id, name, image, lastMessage, time }: ChatCardProps) {
 
                     <Box sx={{ display: 'flex', justifyContent: 'flex-end', flex: 1 }}>
                         <Typography sx={{ color: '#EEEEEE', fontSize: '15px' }}>
-                            {`${calculateDuration(time)}`}
+                            {duration}
                         </Typography>
                     </Box>
                 </Box>

@@ -26,40 +26,36 @@ function FileList() {
   const [selectedMedia, setSelectedMedia] = useState<Message | null>(null)
 
   useEffect(() => {
-    const fetchMedia = async () => {
+    const fetchMessages = async () => {
       if (!chatUserId) return
       try {
         const res = await axios.get(
           `http://localhost:3001/messages?chatId=${chatUserId}`
         )
 
-        const mediaMsgs = res.data.filter(
-          (msg: Message) => msg.text === '[Image]' || msg.text === '[Video]'
+        const allMsgs: Message[] = res.data
+
+        const sorted = [...allMsgs].sort(
+          (a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()
         )
+
+        const mediaMsgs = sorted.filter(
+          (msg) => msg.text === '[Image]' || msg.text === '[Video]'
+        ).slice(0, 6)
+
+        // file: chỉ lấy 5 cái gần nhất
+        const fileMsgs = sorted.filter(
+          (msg) => msg.text === '[Document]'
+        ).slice(0, 5)
+
         setMedia(mediaMsgs)
+        setFile(fileMsgs)
       } catch (err) {
-        console.error('Error fetching media:', err)
+        console.error('Error fetching messages:', err)
       }
     }
 
-    const fetchFile = async () => {
-      if (!chatUserId) return
-      try {
-        const res = await axios.get(
-          `http://localhost:3001/messages?chatId=${chatUserId}`
-        )
-
-        const mediaMsgs = res.data.filter(
-          (msg: Message) => msg.text === '[Document]'
-        )
-        setFile(mediaMsgs)
-      } catch (err) {
-        console.error('Error fetching file:', err)
-      }
-    }
-
-    fetchMedia()
-    fetchFile()
+    fetchMessages()
   }, [chatUserId])
 
   const handleDownload = (url: string, name?: string) => {
@@ -104,8 +100,6 @@ function FileList() {
           </Box>
         ))}
       </Box>
-
-
 
       <Typography sx={{ fontSize: '18px', fontWeight: 'bold', color: 'white' }}>
         File
