@@ -6,6 +6,7 @@ import { Box, Typography, Dialog, IconButton } from '@mui/material'
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import DownloadIcon from '@mui/icons-material/Download'
+import { Description } from '@mui/icons-material'
 
 interface Message {
   id: number
@@ -13,39 +14,65 @@ interface Message {
   senderId: number
   text: string
   timestamp: string
-  image: string
+  fileUrl?: string;
+  fileType?: "image" | "video" | "raw";
+  fileName?: string
 }
 
 function FileList() {
   const chatUserId = useChatUserStore((state) => state.chatUserId)
-  const [images, setImages] = useState<Message[]>([])
-  const [selectedImg, setSelectedImg] = useState<string | null>(null)
+  const [media, setMedia] = useState<Message[]>([])
+  const [file, setFile] = useState<Message[]>([])
+  const [selectedMedia, setSelectedMedia] = useState<Message | null>(null)
 
   useEffect(() => {
-    const fetchMessages = async () => {
+    const fetchMedia = async () => {
       if (!chatUserId) return
       try {
         const res = await axios.get(
           `http://localhost:3001/messages?chatId=${chatUserId}`
         )
 
-        const imageMsgs = res.data.filter(
-          (msg: Message) => msg.text === '[Image]' && msg.image
+        const mediaMsgs = res.data.filter(
+          (msg: Message) => msg.text === '[Image]' || msg.text === '[Video]'
         )
-        setImages(imageMsgs)
+        setMedia(mediaMsgs)
       } catch (err) {
-        console.error('Error fetching messages:', err)
+        console.error('Error fetching media:', err)
       }
     }
 
-    fetchMessages()
+    const fetchFile = async () => {
+      if (!chatUserId) return
+      try {
+        const res = await axios.get(
+          `http://localhost:3001/messages?chatId=${chatUserId}`
+        )
+
+        const mediaMsgs = res.data.filter(
+          (msg: Message) => msg.text === '[Document]'
+        )
+        setFile(mediaMsgs)
+      } catch (err) {
+        console.error('Error fetching file:', err)
+      }
+    }
+
+    fetchMedia()
+    fetchFile()
   }, [chatUserId])
 
-  const handleDownload = (url: string) => {
+  const handleDownload = (url: string, name?: string) => {
     const link = document.createElement('a')
     link.href = url
-    link.download = 'downloaded-image.png'
+    link.download = name || 'downloaded-file'
     link.click()
+  }
+
+  const getVideoThumbnail = (url: string) => {
+    return url
+      .replace('/upload/', '/upload/so_0/') // lấy frame đầu tiên
+      .replace(/\.(mp4|mov|avi|webm)$/, '.jpg') // đổi đuôi sang jpg
   }
 
   return (
@@ -55,20 +82,49 @@ function FileList() {
       </Typography>
 
       <Box display='grid' sx={{ gridTemplateColumns: 'repeat(3, 1fr)', py: 2, gap: 1 }}>
-        {images.map((img) => (
-          <Box key={img.id} onClick={() => setSelectedImg(img.image)} sx={{ cursor: 'pointer' }}>
-            <img
-              src={img.image}
-              alt='image'
-              style={{ maxWidth: '100px', borderRadius: '3px' }}
-            />
+        {media.map((msg) => (
+          <Box
+            key={msg.id}
+            onClick={() => setSelectedMedia(msg)}
+            sx={{ cursor: 'pointer' }}
+          >
+            {msg.fileType === "image" ? (
+              <img
+                src={msg.fileUrl}
+                alt='image'
+                style={{ width: '100px', height: '100px', borderRadius: '3px', objectFit: 'cover' }}
+              />
+            ) : msg.fileType === "video" ? (
+              <img
+                src={getVideoThumbnail(msg.fileUrl!)}
+                alt="video thumbnail"
+                style={{ width: '100px', height: '100px', borderRadius: '3px', objectFit: 'cover' }}
+              />
+            ) : null}
+          </Box>
+        ))}
+      </Box>
+
+
+
+      <Typography sx={{ fontSize: '18px', fontWeight: 'bold', color: 'white' }}>
+        File
+      </Typography>
+
+      <Box>
+        {file.map((msg) => (
+          <Box key={msg.id} sx={{ display: "flex", alignItems: "center", gap: 1, mt: 1, cursor: 'pointer' }}>
+            <Description sx={{ color: "white" }} />
+            <a href={msg.fileUrl} target="_blank" rel="noopener noreferrer" style={{ color: "white", textDecoration: "underline" }}>
+              {msg.fileName}
+            </a>
           </Box>
         ))}
       </Box>
 
       <Dialog
-        open={!!selectedImg}
-        onClose={() => setSelectedImg(null)}
+        open={!!selectedMedia}
+        onClose={() => setSelectedMedia(null)}
         maxWidth="lg"
         PaperProps={{
           sx: {
@@ -85,20 +141,33 @@ function FileList() {
             alignItems: 'center',
           }}
         >
-          {selectedImg && (
+          {selectedMedia && (
             <>
-              <img
-                src={selectedImg}
-                alt="full"
-                style={{
-                  maxWidth: '90vw',
-                  maxHeight: '90vh',
-                  borderRadius: '8px',
-                  display: 'block',
-                }}
-              />
+              {selectedMedia.fileType === "image" ? (
+                <img
+                  src={selectedMedia.fileUrl!}
+                  alt="full"
+                  style={{
+                    maxWidth: '90vw',
+                    maxHeight: '90vh',
+                    borderRadius: '8px',
+                  }}
+                />
+              ) : selectedMedia.fileType === "video" ? (
+                <video
+                  src={selectedMedia.fileUrl!}
+                  controls
+                  autoPlay
+                  style={{
+                    maxWidth: '90vw',
+                    maxHeight: '90vh',
+                    borderRadius: '8px',
+                  }}
+                />
+              ) : null}
+
               <IconButton
-                onClick={() => handleDownload(selectedImg)}
+                onClick={() => handleDownload(selectedMedia.fileUrl!, selectedMedia.fileName)}
                 sx={{
                   position: 'absolute',
                   bottom: 16,
@@ -113,7 +182,6 @@ function FileList() {
           )}
         </Box>
       </Dialog>
-
     </Box>
   )
 }
