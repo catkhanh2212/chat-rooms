@@ -14,6 +14,7 @@ interface Message {
   timestamp: string;
   fileUrl?: string; 
   fileType?: "image" | "video" | "raw"; 
+  fileName: string
 }
 
 
@@ -70,6 +71,7 @@ function ChatSection() {
           text={message.text}
           fileUrl={message.fileUrl}
           fileType={message.fileType}
+          fileName={message.fileName}
           timestamp={message.timestamp} />
       ))}
     </Box>

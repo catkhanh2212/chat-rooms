@@ -53,37 +53,34 @@ function TypeField() {
             formData.append("file", file)
             formData.append("upload_preset", "chat-unsigned")
       
-            // xác định resource_type cho Cloudinary
             let resourceType: "image" | "video" | "raw" = "raw"
             if (file.type.startsWith("image/")) resourceType = "image"
             else if (file.type.startsWith("video/")) resourceType = "video"
       
-            // Gọi API Cloudinary
             const uploadRes = await axios.post(
               `https://api.cloudinary.com/v1_1/difopsd0p/${resourceType}/upload`,
               formData
             )
       
             const fileUrl = uploadRes.data.secure_url
+            const originalName = file.name
       
-            // xác định text hiển thị
             let displayText = "[File]"
             if (resourceType === "image") displayText = "[Image]"
             else if (resourceType === "video") displayText = "[Video]"
             else {
-              // với file raw thì dựa theo extension
               if (file.name.endsWith(".pdf")) displayText = "[PDF]"
               else if (file.name.endsWith(".doc") || file.name.endsWith(".docx"))
                 displayText = "[Document]"
             }
       
-            // Lưu message vào db.json
             await axios.post("http://localhost:3001/messages", {
               chatId: chatUserId,
               senderId: selfId,
               text: displayText,
-              fileUrl, // link file Cloudinary
-              fileType: resourceType, // lưu thêm để client dễ phân biệt
+              fileUrl,                         // link Cloudinary
+              fileType: resourceType,          // image, video, raw
+              fileName: originalName,
               timestamp: new Date().toISOString(),
             })
       
@@ -98,6 +95,7 @@ function TypeField() {
           }
         }
       }
+      
       
 
 

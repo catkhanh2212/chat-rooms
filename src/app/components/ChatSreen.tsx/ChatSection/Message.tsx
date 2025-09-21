@@ -7,6 +7,7 @@ import CloseIcon from '@mui/icons-material/Close'
 import React, { useEffect, useState } from 'react'
 import { formatDate } from "../../../utils/formatDate";
 import axios from 'axios';
+import { Description } from '@mui/icons-material'
 
 interface MessageProps {
   id: number;
@@ -16,10 +17,11 @@ interface MessageProps {
   timestamp: string;
   fileUrl?: string;   // Cloudinary secure_url
   fileType?: "image" | "video" | "raw";
+  fileName: string
 }
 
 
-function Message({ senderId, text, fileUrl, fileType, timestamp }: MessageProps) {
+function Message({ senderId, text, fileUrl, fileType, fileName, timestamp }: MessageProps) {
   const selfId = 999
   const [senderAvatar, setSenderAvatar] = useState<string | null>(null)
   const [selectedImg, setSelectedImg] = useState<string | null>(null)
@@ -57,7 +59,10 @@ function Message({ senderId, text, fileUrl, fileType, timestamp }: MessageProps)
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, my: 2 }}>
           <Avatar src={senderAvatar ?? "/default.png"} alt="avatar" />
           <Box sx={{ p: 2, backgroundColor: '#212121', borderRadius: 2 }}>
-            <Typography sx={{ color: 'white', ml: 1 }}>{text}</Typography>
+            {text !== '[Image]' && text != '[Video]' && text != '[Document]' && (
+              <Typography sx={{ color: 'white', ml: 1 }}>{text}</Typography>
+            )}
+
             {/* image */}
             {fileType === "image" && fileUrl && (
               <img
@@ -84,9 +89,9 @@ function Message({ senderId, text, fileUrl, fileType, timestamp }: MessageProps)
             {/* raw file */}
             {fileType === "raw" && fileUrl && (
               <Box sx={{ display: "flex", alignItems: "center", gap: 1, mt: 1 }}>
-                <DownloadIcon sx={{ color: "white" }} />
+                <Description sx={{ color: "white" }} />
                 <a href={fileUrl} target="_blank" rel="noopener noreferrer" style={{ color: "white", textDecoration: "underline" }}>
-                  {text || "Download file"}
+                  {fileName}
                 </a>
               </Box>
             )}
@@ -98,7 +103,7 @@ function Message({ senderId, text, fileUrl, fileType, timestamp }: MessageProps)
       {senderId === selfId && (
         <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: 2, my: 2 }}>
           <Box sx={{ p: 2, backgroundColor: '#799EFF', borderRadius: 2 }}>
-            {text !== '[Image]' && text != '[Video]' && (
+            {text !== '[Image]' && text != '[Video]' && text != '[Document]' && (
               <Typography sx={{ color: 'white', ml: 1 }}>{text}</Typography>
             )}
             {/* image */}
@@ -127,9 +132,9 @@ function Message({ senderId, text, fileUrl, fileType, timestamp }: MessageProps)
             {/* raw file */}
             {fileType === "raw" && fileUrl && (
               <Box sx={{ display: "flex", alignItems: "center", gap: 1, mt: 1 }}>
-                <DownloadIcon sx={{ color: "white" }} />
+                <Description sx={{ color: "white" }} />
                 <a href={fileUrl} target="_blank" rel="noopener noreferrer" style={{ color: "white", textDecoration: "underline" }}>
-                  {text || "Download file"}
+                  {fileName}
                 </a>
               </Box>
             )}
