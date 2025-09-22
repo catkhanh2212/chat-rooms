@@ -6,6 +6,7 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import FileList from './FileList'
 import AllMedia from './AllMedia'
+import AllFiles from './AllFiles'
 
 interface User {
     id: number;
@@ -19,6 +20,7 @@ function Info() {
     const chatUserId = useChatUserStore((state) => state.chatUserId)
     const [user, setUser] = useState<User | null>(null)
     const [showAllMedia, setShowAllMedia] = useState(false)
+    const [showAllFiles, setShowAllFiles] = useState(false)
 
     useEffect(() => {
         if (!chatUserId) {
@@ -42,11 +44,15 @@ function Info() {
     if (showAllMedia) {
         return <AllMedia onBack={() => setShowAllMedia(false)} />
     }
+
+    if (showAllFiles) {
+        return <AllFiles onBack={() => setShowAllFiles(false)} />
+    }
     
     return (
 
         <Box sx={{ display: 'flex', flexDirection: 'column', height: '100%', backgroundColor: '#1E201E' }}>
-            <Box sx={{ p: 4 }}>
+            <Box sx={{ p: 3 }}>
                 <Box sx={{ display: 'flex', justifyContent: 'center', p: 4 }}>
                     <Avatar src={user?.avatar} alt='avatar' sx={{ width: '72px', height: '72px' }} />
                 </Box>
@@ -56,8 +62,8 @@ function Info() {
 
 
 
-            <Box sx={{ flex: 1 }}>
-                <FileList onMoreClick={() => setShowAllMedia(true)} />
+            <Box sx={{ flex: 1, height: '100%', overflowY: 'auto' }}>
+                <FileList onMoreClick={() => setShowAllFiles(true)} />
             </Box>
         </Box>
     )

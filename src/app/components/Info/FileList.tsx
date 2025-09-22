@@ -28,6 +28,7 @@ function FileList({ onMoreClick }: FileListProps) {
   const [media, setMedia] = useState<Message[]>([])
   const [displayMedia, setDisplayMedia] = useState<Message[]>([])
   const [file, setFile] = useState<Message[]>([])
+  const [displayFile, setDisplayFile] = useState<Message[]>([])
   const [selectedMedia, setSelectedMedia] = useState<Message | null>(null)
 
   useEffect(() => {
@@ -51,14 +52,16 @@ function FileList({ onMoreClick }: FileListProps) {
         const displayMediaMsgs = mediaMsgs.slice(0, 6)
 
 
-        // file: chỉ lấy 5 cái gần nhất
         const fileMsgs = sorted.filter(
           (msg) => msg.text === '[Document]'
-        ).slice(0, 5)
+        )
+
+        const displayFileMsgs = fileMsgs.slice(0, 2)
 
         setMedia(mediaMsgs)
         setDisplayMedia(displayMediaMsgs)
         setFile(fileMsgs)
+        setDisplayFile(displayFileMsgs)
       } catch (err) {
         console.error('Error fetching messages:', err)
       }
@@ -67,12 +70,12 @@ function FileList({ onMoreClick }: FileListProps) {
     fetchMessages()
   }, [chatUserId, displayMedia])
 
-  const handleDownload = (url: string, name?: string) => {
-    const link = document.createElement('a')
-    link.href = url
-    link.download = name || 'downloaded-file'
-    link.click()
-  }
+  // const handleDownload = (url: string, name?: string) => {
+  //   const link = document.createElement('a')
+  //   link.href = url
+  //   link.download = name || 'downloaded-file'
+  //   link.click()
+  // }
 
   const getVideoThumbnail = (url: string) => {
     return url
@@ -142,7 +145,7 @@ function FileList({ onMoreClick }: FileListProps) {
       </Typography>
 
       <Box>
-        {file.map((msg) => (
+        {displayFile.map((msg) => (
           <Box key={msg.id} sx={{ display: "flex", alignItems: "center", gap: 1, mt: 1, cursor: 'pointer' }}>
             <Description sx={{ color: "white" }} />
             <a href={msg.fileUrl} target="_blank" rel="noopener noreferrer" style={{ color: "white", textDecoration: "underline" }}>
@@ -150,6 +153,15 @@ function FileList({ onMoreClick }: FileListProps) {
             </a>
           </Box>
         ))}
+
+        {file.length > 2 && (
+          <Box sx={{ display: 'flex', justifyContent: 'center', py: 2 }}>
+            <Button onClick={onMoreClick} fullWidth sx={{ textTransform: "none", backgroundColor: '#F7F7F7', color: '#181C14', fontWeight: 'bold' }}>
+              More
+            </Button>
+          </Box>
+
+        )}
       </Box>
 
       <Dialog
