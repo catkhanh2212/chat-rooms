@@ -95,8 +95,7 @@ function TypeField() {
           }
         }
       }
-      
-      
+
 
 
     const handleEmojiClick = (emojiData: EmojiClickData) => {
@@ -152,7 +151,7 @@ function TypeField() {
                     backgroundColor: '#e9eff6',
                     borderRadius: '50px',
                     '& fieldset': { border: 'none' },
-                    input: { color: 'grey.700', fontSize: 14 },
+                    input: { color: 'grey.700', fontSize: 14, fontFamily: "Ubuntu, sans-serif" },
                 }}
             />
 

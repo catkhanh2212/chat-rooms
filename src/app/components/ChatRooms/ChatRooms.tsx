@@ -57,7 +57,7 @@ function ChatRooms() {
     return (
         <Box sx={{ display: 'flex', flexDirection: 'column', height: '100%', p: 2, backgroundColor: '#212121' }}>
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                <Typography sx={{ fontSize: '20px', fontWeight: 'bold', color: 'white' }}> Chats </Typography>
+                <Typography sx={{ fontFamily: "Ubuntu, sans-serif", fontSize: '20px', fontWeight: 'bold', color: 'white' }}> Chats </Typography>
             </Box>
 
             <TextField

@@ -41,7 +41,7 @@ function InfoHeader() {
       <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 2 }}>
         <Avatar src={user?.avatar} alt='avatar' sx={{ width: '50px', height: '50px' }} />
 
-        <Typography sx={{ fontSize: '20px', fontWeight: 'bold', color: 'white' }}> {user?.name} </Typography>
+        <Typography sx={{ fontFamily: "Ubuntu, sans-serif", fontSize: '20px', fontWeight: 'bold', color: 'white' }}> {user?.name} </Typography>
 
       </Box>
 

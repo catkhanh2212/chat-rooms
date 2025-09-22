@@ -50,7 +50,7 @@ function Message({ senderId, text, fileUrl, fileType, fileName, timestamp }: Mes
 
   return (
     <Box sx={{ py: 2 }}>
-      <Typography sx={{ textAlign: 'center', color: '#F5F7F8' }}>
+      <Typography sx={{ fontFamily: "Ubuntu, sans-serif", textAlign: 'center', color: '#F5F7F8' }}>
         {formatDate(timestamp)}
       </Typography>
 
@@ -60,7 +60,7 @@ function Message({ senderId, text, fileUrl, fileType, fileName, timestamp }: Mes
           <Avatar src={senderAvatar ?? "/default.png"} alt="avatar" />
           <Box sx={{ p: 2, backgroundColor: '#212121', borderRadius: 2 }}>
             {text !== '[Image]' && text != '[Video]' && text != '[Document]' && (
-              <Typography sx={{ color: 'white', ml: 1 }}>{text}</Typography>
+              <Typography sx={{ fontFamily: "Ubuntu, sans-serif", color: 'white', ml: 1 }}>{text}</Typography>
             )}
 
             {/* image */}
@@ -104,7 +104,7 @@ function Message({ senderId, text, fileUrl, fileType, fileName, timestamp }: Mes
         <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: 2, my: 2 }}>
           <Box sx={{ p: 2, backgroundColor: '#799EFF', borderRadius: 2 }}>
             {text !== '[Image]' && text != '[Video]' && text != '[Document]' && (
-              <Typography sx={{ color: 'white', ml: 1 }}>{text}</Typography>
+              <Typography sx={{ fontFamily: "Ubuntu, sans-serif", color: 'white', ml: 1 }}>{text}</Typography>
             )}
             {/* image */}
             {fileType === "image" && fileUrl && (

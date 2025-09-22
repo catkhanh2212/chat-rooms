@@ -7,7 +7,7 @@ function BlankScreen() {
     <Box sx={{ width: '75%', backgroundColor: '#191919', alignItems: 'center', justifyContent: 'center', display: 'flex', flexDirection: 'column'}}>
         <Forum sx={{ fontSize: '100px', color: '#647FBC'}} />
 
-        <Typography sx={{ fontSize: '28px', color: '#647FBC' }}> Welcome back! </Typography>
+        <Typography sx={{ fontSize: '28px', color: '#647FBC', fontFamily: "Ubuntu, sans-serif" }}> Welcome back! </Typography>
     </Box>
   )
 }

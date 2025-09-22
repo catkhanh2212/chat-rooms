@@ -5,6 +5,7 @@ import { Avatar, Box, Typography } from '@mui/material'
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import FileList from './FileList'
+import AllMedia from './AllMedia'
 
 interface User {
     id: number;
@@ -17,6 +18,7 @@ function Info() {
 
     const chatUserId = useChatUserStore((state) => state.chatUserId)
     const [user, setUser] = useState<User | null>(null)
+    const [showAllMedia, setShowAllMedia] = useState(false)
 
     useEffect(() => {
         if (!chatUserId) {
@@ -36,6 +38,11 @@ function Info() {
 
         fetchUser()
     }, [chatUserId])
+
+    if (showAllMedia) {
+        return <AllMedia onBack={() => setShowAllMedia(false)} />
+    }
+    
     return (
 
         <Box sx={{ display: 'flex', flexDirection: 'column', height: '100%', backgroundColor: '#1E201E' }}>
@@ -44,13 +51,13 @@ function Info() {
                     <Avatar src={user?.avatar} alt='avatar' sx={{ width: '72px', height: '72px' }} />
                 </Box>
 
-                <Typography sx={{ color: 'white', fontSize: '20px', fontWeight: 'bold', textAlign: 'center', mb: 2 }}> {user?.name} </Typography>
+                <Typography sx={{ fontFamily: "Ubuntu, sans-serif", color: 'white', fontSize: '20px', fontWeight: 'bold', textAlign: 'center', mb: 2 }}> {user?.name} </Typography>
             </Box>
 
 
 
             <Box sx={{ flex: 1 }}>
-                <FileList />
+                <FileList onMoreClick={() => setShowAllMedia(true)} />
             </Box>
         </Box>
     )

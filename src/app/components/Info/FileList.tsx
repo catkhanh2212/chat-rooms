@@ -2,7 +2,7 @@
 'use client'
 
 import { useChatUserStore } from '@/app/store/chatUserStore'
-import { Box, Typography, Dialog, IconButton } from '@mui/material'
+import { Box, Typography, Dialog, IconButton, Button } from '@mui/material'
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import DownloadIcon from '@mui/icons-material/Download'
@@ -19,9 +19,14 @@ interface Message {
   fileName?: string
 }
 
-function FileList() {
+interface FileListProps {
+  onMoreClick?: () => void
+}
+
+function FileList({ onMoreClick }: FileListProps) {
   const chatUserId = useChatUserStore((state) => state.chatUserId)
   const [media, setMedia] = useState<Message[]>([])
+  const [displayMedia, setDisplayMedia] = useState<Message[]>([])
   const [file, setFile] = useState<Message[]>([])
   const [selectedMedia, setSelectedMedia] = useState<Message | null>(null)
 
@@ -41,7 +46,10 @@ function FileList() {
 
         const mediaMsgs = sorted.filter(
           (msg) => msg.text === '[Image]' || msg.text === '[Video]'
-        ).slice(0, 6)
+        )
+
+        const displayMediaMsgs = mediaMsgs.slice(0, 6)
+
 
         // file: chỉ lấy 5 cái gần nhất
         const fileMsgs = sorted.filter(
@@ -49,6 +57,7 @@ function FileList() {
         ).slice(0, 5)
 
         setMedia(mediaMsgs)
+        setDisplayMedia(displayMediaMsgs)
         setFile(fileMsgs)
       } catch (err) {
         console.error('Error fetching messages:', err)
@@ -56,7 +65,7 @@ function FileList() {
     }
 
     fetchMessages()
-  }, [chatUserId])
+  }, [chatUserId, displayMedia])
 
   const handleDownload = (url: string, name?: string) => {
     const link = document.createElement('a')
@@ -73,35 +82,62 @@ function FileList() {
 
   return (
     <Box sx={{ backgroundColor: '#1A1A1D', height: '100%', p: 2 }}>
-      <Typography sx={{ fontSize: '18px', fontWeight: 'bold', color: 'white' }}>
+      <Typography sx={{ fontFamily: "Ubuntu, sans-serif", fontSize: '18px', fontWeight: 'bold', color: 'white' }}>
         Media
       </Typography>
 
-      <Box display='grid' sx={{ gridTemplateColumns: 'repeat(3, 1fr)', py: 2, gap: 1 }}>
-        {media.map((msg) => (
-          <Box
-            key={msg.id}
-            onClick={() => setSelectedMedia(msg)}
-            sx={{ cursor: 'pointer' }}
-          >
-            {msg.fileType === "image" ? (
-              <img
-                src={msg.fileUrl}
-                alt='image'
-                style={{ width: '100px', height: '100px', borderRadius: '3px', objectFit: 'cover' }}
-              />
-            ) : msg.fileType === "video" ? (
-              <img
-                src={getVideoThumbnail(msg.fileUrl!)}
-                alt="video thumbnail"
-                style={{ width: '100px', height: '100px', borderRadius: '3px', objectFit: 'cover' }}
-              />
-            ) : null}
-          </Box>
-        ))}
-      </Box>
+      {media.length == 0 ? (
+        <Box sx={{ p: 4, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <Typography sx={{ fontFamily: "Ubuntu, sans-serif", fontSize: '16px', color: 'white' }}>
+            No media uploaded yet
+          </Typography>
+        </Box>
 
-      <Typography sx={{ fontSize: '18px', fontWeight: 'bold', color: 'white' }}>
+      ) :
+        (
+          <Box>
+            <Box display='grid' sx={{ gridTemplateColumns: 'repeat(3, 1fr)', py: 2, gap: 1 }}>
+
+              {displayMedia.map((msg) => (
+                <Box
+                  key={msg.id}
+                  onClick={() => setSelectedMedia(msg)}
+                  sx={{ cursor: 'pointer' }}
+                >
+                  {msg.fileType === "image" ? (
+                    <img
+                      src={msg.fileUrl}
+                      alt='image'
+                      style={{ width: '100px', height: '100px', borderRadius: '3px', objectFit: 'cover' }}
+                    />
+                  ) : msg.fileType === "video" ? (
+                    <img
+                      src={getVideoThumbnail(msg.fileUrl!)}
+                      alt="video thumbnail"
+                      style={{ width: '100px', height: '100px', borderRadius: '3px', objectFit: 'cover' }}
+                    />
+                  ) : null}
+                </Box>
+              ))}
+
+
+            </Box>
+
+            {media.length > 6 && (
+              <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+                <Button onClick={onMoreClick} fullWidth sx={{ textTransform: "none", backgroundColor: '#F7F7F7', color: '#181C14', fontWeight: 'bold' }}>
+                  More
+                </Button>
+              </Box>
+
+            )}
+          </Box>
+
+        )}
+
+
+
+      <Typography sx={{ fontFamily: "Ubuntu, sans-serif", fontSize: '18px', fontWeight: 'bold', color: 'white', py: 2 }}>
         File
       </Typography>
 
@@ -160,7 +196,7 @@ function FileList() {
                 />
               ) : null}
 
-              <IconButton
+              {/* <IconButton
                 onClick={() => handleDownload(selectedMedia.fileUrl!, selectedMedia.fileName)}
                 sx={{
                   position: 'absolute',
@@ -171,7 +207,7 @@ function FileList() {
                 }}
               >
                 <DownloadIcon />
-              </IconButton>
+              </IconButton> */}
             </>
           )}
         </Box>
