@@ -2,7 +2,7 @@
 'use client'
 
 import { useChatUserStore } from '@/app/store/chatUserStore'
-import { Box, Typography, Dialog, IconButton, Button } from '@mui/material'
+import { Box, Typography, Dialog, Button } from '@mui/material'
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { Description } from '@mui/icons-material'
