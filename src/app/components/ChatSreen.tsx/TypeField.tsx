@@ -9,7 +9,7 @@ import React, { useRef, useState } from 'react'
 
 function TypeField() {
     const [text, setText] = useState('')
-    const chatUserId = useChatUserStore((state) => state.chatUserId)
+    const activeRoomId = useChatUserStore((state) => state.activeRoomId)
     const triggerRefresh = useChatUserStore((state) => state.triggerRefresh)
     const selfId = 999
 
@@ -21,16 +21,16 @@ function TypeField() {
         if (!text.trim()) return
         try {
             await axios.post('http://localhost:3001/messages', {
-                chatId: chatUserId,
+                room: activeRoomId,
                 senderId: selfId,
                 text: text.trim(),
                 timestamp: new Date().toISOString(),
             })
 
-            await axios.patch(`http://localhost:3001/chats/${chatUserId}`, {
+            await axios.patch(`http://localhost:3001/rooms/${activeRoomId}`, {
                 lastMessage: text.trim(),
-                time: new Date().toISOString(),
-            })
+                lastMessageTime: new Date().toISOString()
+              })              
 
             setText('')
             triggerRefresh()
@@ -75,7 +75,7 @@ function TypeField() {
             }
       
             await axios.post("http://localhost:3001/messages", {
-              chatId: chatUserId,
+              roomId: activeRoomId,
               senderId: selfId,
               text: displayText,
               fileUrl,                         // link Cloudinary
@@ -84,7 +84,7 @@ function TypeField() {
               timestamp: new Date().toISOString(),
             })
       
-            await axios.patch(`http://localhost:3001/chats/${chatUserId}`, {
+            await axios.patch(`http://localhost:3001/rooms/${activeRoomId}`, {
               lastMessage: displayText,
               time: new Date().toISOString(),
             })

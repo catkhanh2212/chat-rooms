@@ -1,16 +1,19 @@
 import { create } from "zustand";
 
-interface ChatUserStore {
-  chatUserId: number | null;
-  setChatUserId: (id: number | null) => void;
+interface ChatRoomStore {
+  activeRoomId: number | null;
+  setActiveRoomId: (id: number | null) => void;
 
   refreshMessages: number;
   triggerRefresh: () => void;
 }
 
-export const useChatUserStore = create<ChatUserStore>((set) => ({
-  chatUserId: null,
-  setChatUserId: (id) => set({ chatUserId: id }),
+export const useChatUserStore = create<ChatRoomStore>((set) => ({
+  activeRoomId: null,
+  setActiveRoomId: (id) => {
+    console.log("🟢 setActiveRoomId called with:", id)
+    set({ activeRoomId: id })
+  },
 
   refreshMessages: 0,
   triggerRefresh: () =>

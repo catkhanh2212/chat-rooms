@@ -5,7 +5,6 @@ import { useChatUserStore } from '@/app/store/chatUserStore'
 import { Box, Typography, Dialog, IconButton, Button } from '@mui/material'
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import DownloadIcon from '@mui/icons-material/Download'
 import { Description } from '@mui/icons-material'
 
 interface Message {
@@ -24,7 +23,7 @@ interface FileListProps {
 }
 
 function FileList({ onMoreClick }: FileListProps) {
-  const chatUserId = useChatUserStore((state) => state.chatUserId)
+  const activeRoomId = useChatUserStore((state) => state.activeRoomId)
   const [media, setMedia] = useState<Message[]>([])
   const [displayMedia, setDisplayMedia] = useState<Message[]>([])
   const [file, setFile] = useState<Message[]>([])
@@ -33,10 +32,10 @@ function FileList({ onMoreClick }: FileListProps) {
 
   useEffect(() => {
     const fetchMessages = async () => {
-      if (!chatUserId) return
+      if (!activeRoomId) return
       try {
         const res = await axios.get(
-          `http://localhost:3001/messages?chatId=${chatUserId}`
+          `http://localhost:3001/messages?roomId=${activeRoomId}`
         )
 
         const allMsgs: Message[] = res.data
@@ -68,7 +67,7 @@ function FileList({ onMoreClick }: FileListProps) {
     }
 
     fetchMessages()
-  }, [chatUserId, displayMedia])
+  }, [activeRoomId, displayMedia])
 
   // const handleDownload = (url: string, name?: string) => {
   //   const link = document.createElement('a')

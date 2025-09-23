@@ -9,7 +9,7 @@ import { useChatUserStore } from './store/chatUserStore';
 import BlankScreen from './components/BlankScreen';
 
 export default function Home() {
-  const chatUserId = useChatUserStore((state) => state.chatUserId)
+  const activeRoomId = useChatUserStore((state) => state.activeRoomId)
   return (
     <Box sx={{ height: '100vh', display: 'flex', flexDirection: 'column' }}>
       <Header />
@@ -19,7 +19,7 @@ export default function Home() {
           <ChatRooms />
         </Box>
 
-        {chatUserId == null ? <BlankScreen /> : (
+        {activeRoomId == null ? <BlankScreen /> : (
           <Box sx={{ width: '100%', display: 'flex'}}>
             <Box sx={{ width: '70%', display: 'flex', flexDirection: 'column', minHeight: 0 }}>
               <ChatScreen />

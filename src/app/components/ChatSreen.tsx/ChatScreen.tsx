@@ -5,6 +5,8 @@ import ChatSection from './ChatSection'
 import TypeField from './TypeField'
 
 function ChatScreen() {
+  console.log("🔥 ChatScreen rendered")
+
   return (
     <Box sx={{ flex: 1, display: 'flex', height: '100%', flexDirection: 'column', justifyContent: 'space-between' }}>
       <InfoHeader />

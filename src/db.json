@@ -52,350 +52,383 @@
       "avatar": "/avatar.png"
     }
   ],
-  "chats": [
+  "rooms": [
     {
       "id": "1",
-      "userId": 1,
-      "lastMessage": "=))",
-      "status": "typing...",
-      "time": "2025-09-21T09:27:21.644Z",
-      "lastTimestamp": "2025-09-18T13:21:28.305Z"
+      "name": "General Chat",
+      "members": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "999"
+      ],
+      "lastMessage": "See you all tomorrow!",
+      "lastMessageTime": "2025-09-15T21:30:00Z"
     },
     {
       "id": "2",
-      "userId": 2,
-      "lastMessage": "[Document]",
-      "time": "2025-09-22T08:42:43.409Z",
-      "lastTimestamp": "2025-09-21T09:02:11.302Z"
+      "name": "Project Alpha",
+      "members": [
+        "2",
+        "3",
+        "5",
+        "999"
+      ],
+      "lastMessage": "I’ll push the latest code tonight.",
+      "lastMessageTime": "2025-09-16T09:45:00Z"
     },
     {
       "id": "3",
-      "userId": 3,
-      "lastMessage": "Hey, how's it going?",
-      "time": "2025-09-16T14:25:00Z"
+      "name": "Weekend Plans",
+      "members": [
+        "4",
+        "6",
+        "7",
+        "999"
+      ],
+      "lastMessage": "Let’s meet at 7 PM sharp!",
+      "lastMessageTime": "2025-09-14T18:20:00Z"
     },
     {
       "id": "4",
-      "userId": 4,
-      "lastMessage": "Same here. I've been trying to k...",
-      "time": "2025-09-15T09:05:00Z"
+      "name": "Design Team",
+      "members": [
+        "8",
+        "9",
+        "999"
+      ],
+      "lastMessage": "Mockups are ready for review.",
+      "lastMessageTime": "2025-09-16T11:10:00Z"
     },
     {
       "id": "5",
-      "userId": 5,
-      "lastMessage": "It's been really fun so far",
-      "time": "2025-09-14T08:10:00Z"
+      "name": "Private Chat with Jasmine",
+      "members": [
+        "1",
+        "999"
+      ],
+      "lastMessage": "Thanks for your help today ❤️",
+      "lastMessageTime": "2025-09-15T23:05:00Z"
     },
     {
       "id": "6",
-      "userId": 6,
-      "lastMessage": "That's cool!",
-      "time": "2025-09-10T18:00:00Z"
+      "name": "Chat with Konstantin",
+      "members": [
+        "2",
+        "999"
+      ],
+      "lastMessage": "Don’t forget tomorrow’s meeting.",
+      "lastMessageTime": "2025-09-16T08:15:00Z"
     },
     {
       "id": "7",
-      "userId": 7,
-      "lastMessage": "Yeah, I’ve been trying to paint",
-      "time": "2025-09-05T16:10:00Z"
+      "name": "Chat with Marie",
+      "members": [
+        "4",
+        "999"
+      ],
+      "lastMessage": "[Video]",
+      "lastMessageTime": "2025-09-22T14:09:58.956Z",
+      "time": "2025-09-22T14:15:58.942Z"
     },
     {
       "id": "8",
-      "userId": 8,
-      "lastMessage": "That’s awesome! I’d love to see",
-      "time": "2025-08-18T14:00:00Z"
+      "name": "Chat with Phillip",
+      "members": [
+        "5",
+        "999"
+      ],
+      "lastMessage": "Sent you the report already.",
+      "lastMessageTime": "2025-09-15T19:40:00Z"
     },
     {
       "id": "9",
-      "userId": 9,
-      "lastMessage": "Sounds good to me",
-      "time": "2025-07-18T12:05:00Z"
+      "name": "Chat with Romy",
+      "members": [
+        "6",
+        "999"
+      ],
+      "lastMessage": "See you at the gym?",
+      "lastMessageTime": "2025-09-14T17:10:00Z"
     }
   ],
   "messages": [
     {
       "id": "1",
-      "chatId": 1,
-      "senderId": 1,
-      "text": "Hey, are you free?",
-      "timestamp": "2025-09-18T10:00:00Z"
+      "roomId": 1,
+      "senderId": "1",
+      "text": "Hey everyone, how’s it going?",
+      "timestamp": "2025-09-15T20:50:00Z"
     },
     {
       "id": "2",
-      "chatId": 1,
-      "senderId": 999,
-      "text": "Yes, tell me!",
-      "timestamp": "2025-09-18T10:02:00Z"
+      "roomId": 1,
+      "senderId": "2",
+      "text": "Pretty good, just finished work.",
+      "timestamp": "2025-09-15T21:00:00Z"
     },
     {
       "id": "3",
-      "chatId": 1,
-      "senderId": 1,
-      "text": "Had they visited Rome before?",
-      "timestamp": "2025-09-18T10:05:00Z"
+      "roomId": 1,
+      "senderId": 999,
+      "text": "See you all tomorrow!",
+      "timestamp": "2025-09-15T21:30:00Z"
     },
     {
       "id": "4",
-      "chatId": 2,
-      "senderId": 999,
-      "text": "Did you like the song?",
-      "timestamp": "2025-09-17T11:30:00Z"
+      "roomId": 2,
+      "senderId": "5",
+      "text": "Did you check the latest commit?",
+      "timestamp": "2025-09-16T09:00:00Z"
     },
     {
       "id": "5",
-      "chatId": 2,
-      "senderId": 2,
-      "text": "Yeah! Disco is awesome!",
-      "timestamp": "2025-09-17T11:31:00Z"
+      "roomId": 2,
+      "senderId": 999,
+      "text": "Yes, looks good to me.",
+      "timestamp": "2025-09-16T09:20:00Z"
     },
     {
       "id": "6",
-      "chatId": 2,
-      "senderId": 2,
-      "text": "I even bought some vinyls.",
-      "timestamp": "2025-09-17T11:35:00Z"
+      "roomId": 2,
+      "senderId": "2",
+      "text": "I’ll push the latest code tonight.",
+      "timestamp": "2025-09-16T09:45:00Z"
     },
     {
       "id": "7",
-      "chatId": 3,
-      "senderId": 3,
-      "text": "Hey, how's it going?",
-      "timestamp": "2025-09-16T14:20:00Z"
+      "roomId": 2,
+      "senderId": "4",
+      "text": "What’s the plan for the weekend?",
+      "timestamp": "2025-09-14T17:30:00Z"
     },
     {
       "id": "8",
-      "chatId": 3,
-      "senderId": 999,
-      "text": "All good, just busy coding.",
-      "timestamp": "2025-09-16T14:22:00Z"
+      "roomId": 2,
+      "senderId": "6",
+      "text": "Maybe a barbecue at my place?",
+      "timestamp": "2025-09-14T17:50:00Z"
     },
     {
       "id": "9",
-      "chatId": 3,
-      "senderId": 3,
-      "text": "Haha same here.",
-      "timestamp": "2025-09-16T14:25:00Z"
+      "roomId": 3,
+      "senderId": "7",
+      "text": "Let’s meet at 7 PM sharp!",
+      "timestamp": "2025-09-14T18:20:00Z"
     },
     {
       "id": "10",
-      "chatId": 4,
-      "senderId": 4,
-      "text": "Same here. I’ve been trying to keep up with work.",
-      "timestamp": "2025-09-15T09:00:00Z"
+      "roomId": 4,
+      "senderId": "8",
+      "text": "I’ve uploaded the wireframes.",
+      "timestamp": "2025-09-16T10:40:00Z"
     },
     {
       "id": "11",
-      "chatId": 4,
+      "roomId": 4,
       "senderId": 999,
-      "text": "Yeah, burnout is real!",
-      "timestamp": "2025-09-15T09:05:00Z"
+      "text": "Great, I’ll review them.",
+      "timestamp": "2025-09-16T10:55:00Z"
     },
     {
       "id": "12",
-      "chatId": 5,
-      "senderId": 5,
-      "text": "It’s been really fun so far.",
-      "timestamp": "2025-09-14T08:00:00Z"
+      "roomId": 4,
+      "senderId": "9",
+      "text": "Mockups are ready for review.",
+      "timestamp": "2025-09-16T11:10:00Z"
     },
     {
       "id": "13",
-      "chatId": 5,
-      "senderId": 999,
-      "text": "Nice! What have you been up to?",
-      "timestamp": "2025-09-14T08:10:00Z"
+      "roomId": 5,
+      "senderId": "1",
+      "text": "Hey, are you free later?",
+      "timestamp": "2025-09-15T22:30:00Z"
     },
     {
       "id": "14",
-      "chatId": 6,
-      "senderId": 6,
-      "text": "That’s cool!",
-      "timestamp": "2025-09-10T18:00:00Z"
+      "roomId": 5,
+      "senderId": 999,
+      "text": "Yes, let’s catch up.",
+      "timestamp": "2025-09-15T22:45:00Z"
     },
     {
       "id": "15",
-      "chatId": 7,
-      "senderId": 7,
-      "text": "Yeah, I’ve been trying to paint.",
-      "timestamp": "2025-09-05T16:00:00Z"
+      "roomId": 5,
+      "senderId": "1",
+      "text": "Thanks for your help today ❤️",
+      "timestamp": "2025-09-15T23:05:00Z"
     },
     {
       "id": "16",
-      "chatId": 7,
+      "roomId": 6,
       "senderId": 999,
-      "text": "Show me some pictures later!",
-      "timestamp": "2025-09-05T16:10:00Z"
+      "text": "Did you finish the slides?",
+      "timestamp": "2025-09-16T07:55:00Z"
     },
     {
       "id": "17",
-      "chatId": 8,
-      "senderId": 8,
-      "text": "That’s awesome! I’d love to see.",
-      "timestamp": "2025-08-18T14:00:00Z"
+      "roomId": 6,
+      "senderId": "2",
+      "text": "Yes, just polishing a bit.",
+      "timestamp": "2025-09-16T08:10:00Z"
     },
     {
       "id": "18",
-      "chatId": 9,
-      "senderId": 9,
-      "text": "Sounds good to me.",
-      "timestamp": "2025-07-18T12:00:00Z"
+      "roomId": 6,
+      "senderId": "2",
+      "text": "Don’t forget tomorrow’s meeting.",
+      "timestamp": "2025-09-16T08:15:00Z"
     },
     {
       "id": "19",
-      "chatId": 9,
-      "senderId": 999,
-      "text": "Cool, let’s do it.",
-      "timestamp": "2025-07-18T12:05:00Z"
+      "roomId": 7,
+      "senderId": "4",
+      "text": "Can you check my draft?",
+      "timestamp": "2025-09-16T12:30:00Z"
     },
     {
-      "id": "899a",
-      "chatId": "1",
+      "id": "20",
+      "roomId": 7,
       "senderId": 999,
-      "text": "Maybe. I dont't know",
-      "timestamp": "2025-09-18T12:51:17.625Z"
+      "text": "Sure, send it over.",
+      "timestamp": "2025-09-16T12:40:00Z"
     },
     {
-      "id": "5198",
-      "chatId": "1",
-      "senderId": 999,
-      "text": "Are you gonna visit there?",
-      "timestamp": "2025-09-18T13:04:35.486Z"
+      "id": "21",
+      "roomId": 7,
+      "senderId": "4",
+      "text": "Can you review my draft?",
+      "timestamp": "2025-09-16T12:50:00Z"
     },
     {
-      "id": "c6aa",
-      "chatId": "1",
-      "senderId": 999,
-      "text": "Where are u 🤨🤨",
-      "timestamp": "2025-09-18T13:21:28.286Z"
+      "id": "22",
+      "roomId": 8,
+      "senderId": "5",
+      "text": "Did you get my report?",
+      "timestamp": "2025-09-15T19:00:00Z"
     },
     {
-      "id": "9641",
-      "chatId": "2",
+      "id": "23",
+      "roomId": 8,
       "senderId": 999,
-      "text": "hey look 🥺",
-      "timestamp": "2025-09-18T13:48:37.587Z"
+      "text": "Yes, I got it. Thanks.",
+      "timestamp": "2025-09-15T19:20:00Z"
     },
     {
-      "id": "ac87",
-      "chatId": "2",
+      "id": "24",
+      "roomId": 8,
+      "senderId": "5",
+      "text": "Sent you the report already.",
+      "timestamp": "2025-09-15T19:40:00Z"
+    },
+    {
+      "id": "25",
+      "roomId": 9,
+      "senderId": "6",
+      "text": "Are you coming to the gym?",
+      "timestamp": "2025-09-14T16:40:00Z"
+    },
+    {
+      "id": "26",
+      "roomId": 9,
+      "senderId": 999,
+      "text": "Yes, around 6:30.",
+      "timestamp": "2025-09-14T16:55:00Z"
+    },
+    {
+      "id": "27",
+      "roomId": 9,
+      "senderId": "6",
+      "text": "See you at the gym?",
+      "timestamp": "2025-09-14T17:10:00Z"
+    },
+    {
+      "id": "b397",
+      "room": 7,
+      "senderId": 999,
+      "text": "ok 🥰",
+      "timestamp": "2025-09-22T14:09:58.934Z"
+    },
+    {
+      "id": "07f8",
+      "roomId": 7,
+      "senderId": 999,
+      "text": "[Video]",
+      "fileUrl": "https://res.cloudinary.com/difopsd0p/video/upload/v1758550467/j4q3mv4fj02lnj8mnd8l.mp4",
+      "fileType": "video",
+      "fileName": "北欧古老的传说：看见极光的人，许愿一定会成功的。 #极光.mp4",
+      "timestamp": "2025-09-22T14:14:36.461Z"
+    },
+    {
+      "id": "8129",
+      "roomId": 7,
+      "senderId": 999,
+      "text": "[Video]",
+      "fileUrl": "https://res.cloudinary.com/difopsd0p/video/upload/v1758550476/svtewmpeyashqmrqptei.mp4",
+      "fileType": "video",
+      "fileName": "亲一下然后就睡觉哦Z☡zᶻ ⌁.mp4",
+      "timestamp": "2025-09-22T14:14:45.346Z"
+    },
+    {
+      "id": "b71d",
+      "roomId": 7,
+      "senderId": 999,
+      "text": "[Video]",
+      "fileUrl": "https://res.cloudinary.com/difopsd0p/video/upload/v1758550490/vapdzkkop9vayzk5mju6.mp4",
+      "fileType": "video",
+      "fileName": "好看的花分享给好看的人#鲜花分享 #花海 #拍花 #浪漫不死 #花期已至美好如初.mp4",
+      "timestamp": "2025-09-22T14:15:00.016Z"
+    },
+    {
+      "id": "472e",
+      "roomId": 7,
+      "senderId": 999,
+      "text": "[Video]",
+      "fileUrl": "https://res.cloudinary.com/difopsd0p/video/upload/v1758550504/ow7ykcdhjjzpww8tgkkx.mp4",
+      "fileType": "video",
+      "fileName": "飘飘荡荡总得有个结果#烟花🎆.mp4",
+      "timestamp": "2025-09-22T14:15:14.324Z"
+    },
+    {
+      "id": "8447",
+      "roomId": 7,
       "senderId": 999,
       "text": "[Document]",
-      "fileUrl": "https://res.cloudinary.com/difopsd0p/raw/upload/v1758378577/dazdih9oxit3l8i5a45h.docx",
+      "fileUrl": "https://res.cloudinary.com/difopsd0p/raw/upload/v1758550514/ihkmhhlfghrqc12haszp.docx",
       "fileType": "raw",
       "fileName": "test.docx",
-      "timestamp": "2025-09-20T14:29:44.292Z"
+      "timestamp": "2025-09-22T14:15:23.355Z"
     },
     {
-      "id": "f30d",
-      "chatId": "2",
-      "senderId": 999,
-      "text": "[Image]",
-      "fileUrl": "https://res.cloudinary.com/difopsd0p/image/upload/v1758420603/d1q8o9ah5jq4npocevu5.jpg",
-      "fileType": "image",
-      "fileName": "0062K5qhly1hlwlozx0y0j30rs0rs4qp.jpg",
-      "timestamp": "2025-09-21T02:10:11.331Z"
-    },
-    {
-      "id": "3b67",
-      "chatId": "2",
+      "id": "b91e",
+      "roomId": 7,
       "senderId": 999,
       "text": "[Video]",
-      "fileUrl": "https://res.cloudinary.com/difopsd0p/video/upload/v1758420619/rpnhf7azytc4fmehrh0k.mp4",
+      "fileUrl": "https://res.cloudinary.com/difopsd0p/video/upload/v1758550523/twryj2vnt1riee6pxejn.mp4",
       "fileType": "video",
-      "fileName": "download.mp4",
-      "timestamp": "2025-09-21T02:10:27.376Z"
+      "fileName": "🐈‍⬛&🐟.mp4",
+      "timestamp": "2025-09-22T14:15:32.143Z"
     },
     {
-      "id": "103c",
-      "chatId": "2",
+      "id": "c2ea",
+      "roomId": 7,
       "senderId": 999,
       "text": "[Video]",
-      "fileUrl": "https://res.cloudinary.com/difopsd0p/video/upload/v1758445323/vziv0rmwmwxoddxdmfpp.mp4",
+      "fileUrl": "https://res.cloudinary.com/difopsd0p/video/upload/v1758550531/pfxdenjqw5y7cm1w3lue.mp4",
       "fileType": "video",
-      "fileName": "喜欢怎么可能会腻呢.mp4",
-      "timestamp": "2025-09-21T09:02:11.283Z"
+      "fileName": "人 小斗我吃火龙果一点也不脏嘴巴#家有馋狗 #我和我的狗 #萌宠 #小狗吃播.mp4",
+      "timestamp": "2025-09-22T14:15:40.776Z"
     },
     {
-      "id": "da13",
-      "chatId": "2",
-      "senderId": 999,
-      "text": "🥝",
-      "timestamp": "2025-09-21T09:03:51.252Z"
-    },
-    {
-      "id": "7a5f",
-      "chatId": "2",
+      "id": "6d09",
+      "roomId": 7,
       "senderId": 999,
       "text": "[Video]",
-      "fileUrl": "https://res.cloudinary.com/difopsd0p/video/upload/v1758446325/gxkoqskgleoll2rbgeiq.mp4",
+      "fileUrl": "https://res.cloudinary.com/difopsd0p/video/upload/v1758550549/rnupwlool0mx4i53e98y.mp4",
       "fileType": "video",
-      "fileName": "长大后发现养的第一个小孩是小猫～#谁不为小猫咪着迷呢 #我和我的猫 @DOU+小助手.mp4",
-      "timestamp": "2025-09-21T09:18:53.696Z"
-    },
-    {
-      "id": "e557",
-      "chatId": "1",
-      "senderId": 999,
-      "text": "=))",
-      "timestamp": "2025-09-21T09:27:21.632Z"
-    },
-    {
-      "id": "9e08",
-      "chatId": "2",
-      "senderId": 999,
-      "text": "[Video]",
-      "fileUrl": "https://res.cloudinary.com/difopsd0p/video/upload/v1758462458/egphnonqltkupwaehjss.mp4",
-      "fileType": "video",
-      "fileName": "这么萌滴德文猫谁不稀罕呢？黑白德文卷毛猫上线！#德文猫 #被迫营业的猫猫 #小猫咪怼脸杀视频 #铲屎官的乐趣 #萌宠出道计划.mp4",
-      "timestamp": "2025-09-21T13:47:45.616Z"
-    },
-    {
-      "id": "f5e9",
-      "chatId": "2",
-      "senderId": 999,
-      "text": "[Video]",
-      "fileUrl": "https://res.cloudinary.com/difopsd0p/video/upload/v1758462475/cjkrykqtosddyzufelsz.mp4",
-      "fileType": "video",
-      "fileName": "小狗要做小狗梦#萨摩耶 #萨摩耶宝宝#萨摩耶幼崽#萨摩耶犬#纯种狗狗.mp4",
-      "timestamp": "2025-09-21T13:48:02.431Z"
-    },
-    {
-      "id": "147c",
-      "chatId": "2",
-      "senderId": 999,
-      "text": "[Video]",
-      "fileUrl": "https://res.cloudinary.com/difopsd0p/video/upload/v1758462483/phfxuikituufi2yy4o2s.mp4",
-      "fileType": "video",
-      "fileName": "小猫一响！该起床啦～ #金三柜.mp4",
-      "timestamp": "2025-09-21T13:48:10.577Z"
-    },
-    {
-      "id": "dea9",
-      "chatId": "2",
-      "senderId": 999,
-      "text": "[Document]",
-      "fileUrl": "https://res.cloudinary.com/difopsd0p/raw/upload/v1758530464/z4hyzvmzbse4aasyydpb.docx",
-      "fileType": "raw",
-      "fileName": "test.docx",
-      "timestamp": "2025-09-22T08:41:12.919Z"
-    },
-    {
-      "id": "7bb9",
-      "chatId": "2",
-      "senderId": 999,
-      "text": "[Document]",
-      "fileUrl": "https://res.cloudinary.com/difopsd0p/raw/upload/v1758530530/n5gr2y2pcifplcgun8rx.docx",
-      "fileType": "raw",
-      "fileName": "test.docx",
-      "timestamp": "2025-09-22T08:42:19.072Z"
-    },
-    {
-      "id": "e585",
-      "chatId": "2",
-      "senderId": 999,
-      "text": "[Document]",
-      "fileUrl": "https://res.cloudinary.com/difopsd0p/raw/upload/v1758530554/jjrge60uu2su4fttzmyk.docx",
-      "fileType": "raw",
-      "fileName": "dazdih9oxit3l8i5a45h.docx",
-      "timestamp": "2025-09-22T08:42:43.394Z"
+      "fileName": "我想猫猫应该也有心事吧🥹 #也太可爱了吧 #宠物vlog #毛孩子 #万物有灵.mp4",
+      "timestamp": "2025-09-22T14:15:58.932Z"
     }
   ]
 }

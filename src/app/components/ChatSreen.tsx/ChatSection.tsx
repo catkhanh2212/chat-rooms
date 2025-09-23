@@ -6,40 +6,53 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import Message from './ChatSection/Message'
 
-interface Message {
+interface MessageType {
   id: number;
-  chatId: number;
+  roomId: number;
   senderId: number;
   text: string;
   timestamp: string;
-  fileUrl?: string; 
-  fileType?: "image" | "video" | "raw"; 
-  fileName: string
+  fileUrl?: string;
+  fileType?: "image" | "video" | "raw";
+  fileName: string;
 }
 
-
 function ChatSection() {
-  const chatUserId = useChatUserStore((state) => state.chatUserId)
+  const activeRoomId = useChatUserStore((state) => state.activeRoomId)
   const refreshMessages = useChatUserStore((state) => state.refreshMessages)
-  const [messages, setMessages] = useState<Message[]>([])
+  const [messages, setMessages] = useState<MessageType[]>([])
   const [mounted, setMounted] = useState(false)
 
-  useEffect(() => {
-    setMounted(true)
+  console.log("🔵 ChatSection render, activeRoomId =", activeRoomId)
+
+  console.log("🟣 useChatUserStore import in ChatSection =", useChatUserStore)
+
+
+
+  useEffect(() => { 
+    setMounted(true) 
   }, [])
 
+
   useEffect(() => {
-    if (!chatUserId) return
+    if (!activeRoomId) return
+
+    console.log("Here")
+
     const fetchMessages = async () => {
       try {
-        const res = await axios.get<Message[]>(`http://localhost:3001/messages?chatId=${chatUserId}`)
+        const res = await axios.get<MessageType[]>(`http://localhost:3001/messages?roomId=${activeRoomId}`)
         setMessages(res.data)
+        console.log("Messages state set to:", res.data)
+        console.log("API data:", res.data)
       } catch (err) {
         console.error("Error fetching messages:", err)
       }
     }
     fetchMessages()
-  }, [chatUserId, refreshMessages])
+  }, [activeRoomId, refreshMessages])
+  
+
 
   if (!mounted) {
     return <Box sx={{ backgroundColor: '#191919', height: '100%' }} />
@@ -47,7 +60,11 @@ function ChatSection() {
 
   return (
     <Box sx={{
-      backgroundColor: '#191919', height: '100%', p: 4, overflowY: 'auto', pr: 2,
+      backgroundColor: '#191919',
+      height: '100%',
+      p: 4,
+      overflowY: 'auto',
+      pr: 2,
       '&::-webkit-scrollbar': {
         width: '6px',
       },
@@ -65,14 +82,15 @@ function ChatSection() {
       {messages.map((message) => (
         <Message
           key={message.id}
-          chatId={message.chatId}
+          roomId={message.roomId}
           id={message.id}
           senderId={message.senderId}
           text={message.text}
           fileUrl={message.fileUrl}
           fileType={message.fileType}
           fileName={message.fileName}
-          timestamp={message.timestamp} />
+          timestamp={message.timestamp}
+        />
       ))}
     </Box>
   )

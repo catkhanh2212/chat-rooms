@@ -11,7 +11,7 @@ import { Description } from '@mui/icons-material'
 
 interface MessageProps {
   id: number;
-  chatId: number;
+  roomId: number;
   senderId: number;
   text: string;
   timestamp: string;

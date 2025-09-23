@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
 'use client'
 
 import { Box, Typography } from '@mui/material'
@@ -9,7 +8,7 @@ import { ArrowBackIos, Description } from '@mui/icons-material'
 
 interface Message {
     id: number
-    chatId: number
+    roomId: number
     senderId: number
     text: string
     timestamp: string
@@ -19,14 +18,14 @@ interface Message {
 }
 
 function AllFiles({ onBack }: { onBack: () => void }) {
-    const chatUserId = useChatUserStore((state) => state.chatUserId)
+    const activeRoomId = useChatUserStore((state) => state.activeRoomId)
     const [file, setFile] = useState<Message[]>([])
 
     useEffect(() => {
-        if (!chatUserId) return
+        if (!activeRoomId) return
         const fetchMessages = async () => {
             try {
-                const res = await axios.get(`http://localhost:3001/messages?chatId=${chatUserId}`)
+                const res = await axios.get(`http://localhost:3001/messages?roomId=${activeRoomId}`)
                 const allMsgs: Message[] = res.data
                 const sorted = [...allMsgs].sort(
                     (a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()
@@ -40,7 +39,7 @@ function AllFiles({ onBack }: { onBack: () => void }) {
             }
         }
         fetchMessages()
-    }, [chatUserId])
+    }, [activeRoomId])
 
 
     return (
