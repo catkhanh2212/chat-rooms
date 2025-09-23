@@ -19,15 +19,15 @@ interface Message {
 }
 
 function AllMedia({ onBack }: { onBack: () => void }) {
-    const chatUserId = useChatUserStore((state) => state.chatUserId)
+    const activeRoomId = useChatUserStore((state) => state.activeRoomId)
     const [media, setMedia] = useState<Message[]>([])
     const [selectedMedia, setSelectedMedia] = useState<Message | null>(null)
 
     useEffect(() => {
-        if (!chatUserId) return
+        if (!activeRoomId) return
         const fetchMessages = async () => {
             try {
-                const res = await axios.get(`http://localhost:3001/messages?chatId=${chatUserId}`)
+                const res = await axios.get(`http://localhost:3001/messages?roomId=${activeRoomId}`)
                 const allMsgs: Message[] = res.data
                 const sorted = [...allMsgs].sort(
                     (a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()
@@ -41,7 +41,7 @@ function AllMedia({ onBack }: { onBack: () => void }) {
             }
         }
         fetchMessages()
-    }, [chatUserId])
+    }, [activeRoomId])
 
     const getVideoThumbnail = (url: string) => {
         return url

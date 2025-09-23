@@ -19,10 +19,11 @@ interface Message {
 }
 
 interface FileListProps {
-  onMoreClick?: () => void
+  onMoreClickMedia?: () => void
+  onMoreClickFiles?: () => void
 }
 
-function FileList({ onMoreClick }: FileListProps) {
+function FileList({ onMoreClickMedia, onMoreClickFiles }: FileListProps) {
   const activeRoomId = useChatUserStore((state) => state.activeRoomId)
   const [media, setMedia] = useState<Message[]>([])
   const [displayMedia, setDisplayMedia] = useState<Message[]>([])
@@ -127,7 +128,7 @@ function FileList({ onMoreClick }: FileListProps) {
 
             {media.length > 6 && (
               <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-                <Button onClick={onMoreClick} fullWidth sx={{ textTransform: "none", backgroundColor: '#F7F7F7', color: '#181C14', fontWeight: 'bold' }}>
+                <Button onClick={onMoreClickMedia} fullWidth sx={{ textTransform: "none", backgroundColor: '#F7F7F7', color: '#181C14', fontWeight: 'bold' }}>
                   More
                 </Button>
               </Box>
@@ -143,25 +144,37 @@ function FileList({ onMoreClick }: FileListProps) {
         File
       </Typography>
 
-      <Box>
-        {displayFile.map((msg) => (
-          <Box key={msg.id} sx={{ display: "flex", alignItems: "center", gap: 1, mt: 1, cursor: 'pointer' }}>
-            <Description sx={{ color: "white" }} />
-            <a href={msg.fileUrl} target="_blank" rel="noopener noreferrer" style={{ color: "white", textDecoration: "underline" }}>
-              {msg.fileName}
-            </a>
-          </Box>
-        ))}
+      {file.length == 0 ? (
+        <Box sx={{ p: 4, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <Typography sx={{ fontFamily: "Ubuntu, sans-serif", fontSize: '16px', color: 'white' }}>
+            No file uploaded yet
+          </Typography>
+        </Box>
 
-        {file.length > 2 && (
-          <Box sx={{ display: 'flex', justifyContent: 'center', py: 2 }}>
-            <Button onClick={onMoreClick} fullWidth sx={{ textTransform: "none", backgroundColor: '#F7F7F7', color: '#181C14', fontWeight: 'bold' }}>
-              More
-            </Button>
-          </Box>
+      ) : (
+        <Box>
+          {displayFile.map((msg) => (
+            <Box key={msg.id} sx={{ display: "flex", alignItems: "center", gap: 1, mt: 1, cursor: 'pointer' }}>
+              <Description sx={{ color: "white" }} />
+              <a href={msg.fileUrl} target="_blank" rel="noopener noreferrer" style={{ color: "white", textDecoration: "underline" }}>
+                {msg.fileName}
+              </a>
+            </Box>
+          ))}
 
-        )}
-      </Box>
+          {file.length > 2 && (
+            <Box sx={{ display: 'flex', justifyContent: 'center', py: 2 }}>
+              <Button onClick={onMoreClickFiles} fullWidth sx={{ textTransform: "none", backgroundColor: '#F7F7F7', color: '#181C14', fontWeight: 'bold' }}>
+                More
+              </Button>
+            </Box>
+
+          )}
+        </Box>
+      )
+      }
+
+
 
       <Dialog
         open={!!selectedMedia}

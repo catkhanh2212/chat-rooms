@@ -20,7 +20,7 @@ export default function Home() {
         </Box>
 
         {activeRoomId == null ? <BlankScreen /> : (
-          <Box sx={{ width: '100%', display: 'flex'}}>
+          <Box sx={{ width: '75%', display: 'flex'}}>
             <Box sx={{ width: '70%', display: 'flex', flexDirection: 'column', minHeight: 0 }}>
               <ChatScreen />
             </Box>

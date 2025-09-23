@@ -114,7 +114,7 @@ function Info() {
 
 
             <Box sx={{ flex: 1, height: '100%', overflowY: 'auto' }}>
-                <FileList onMoreClick={() => setShowAllFiles(true)} />
+                <FileList onMoreClickMedia={() => setShowAllMedia(true)} onMoreClickFiles={() => setShowAllFiles(true)} />
             </Box>
         </Box>
     )

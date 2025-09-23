@@ -21,7 +21,7 @@ function TypeField() {
         if (!text.trim()) return
         try {
             await axios.post('http://localhost:3001/messages', {
-                room: activeRoomId,
+                roomId: activeRoomId,
                 senderId: selfId,
                 text: text.trim(),
                 timestamp: new Date().toISOString(),
@@ -86,7 +86,7 @@ function TypeField() {
       
             await axios.patch(`http://localhost:3001/rooms/${activeRoomId}`, {
               lastMessage: displayText,
-              time: new Date().toISOString(),
+              lastMessageTime: new Date().toISOString(),
             })
       
             triggerRefresh()

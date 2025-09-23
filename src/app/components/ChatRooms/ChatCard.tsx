@@ -23,7 +23,7 @@ interface User {
 interface Room {
     id: number;
     name: string;
-    members: string[]; // array of userId
+    members: string[];
     lastMessage: string;
     lastMessageTime: string;
 }
@@ -58,14 +58,12 @@ function ChatCard({ id, name, image, lastMessage, time }: ChatCardProps) {
         fetchData()
     }, [id])
 
-    // Map members -> user objects
     const memberUsers: User[] = (room?.members || [])
         .map(id => users.find(u => u.id === id))
         .filter((u): u is User => !!u)
 
     const otherMembers: User[] = memberUsers.filter(u => u.id !== selfId)
 
-    // Avatar logic
     const maxAvatars = 3
     const visibleAvatars = otherMembers.slice(0, maxAvatars)
     const remaining = Math.max(0, otherMembers.length - maxAvatars)
@@ -80,7 +78,6 @@ function ChatCard({ id, name, image, lastMessage, time }: ChatCardProps) {
             sx={{
                 display: 'flex',
                 alignItems: 'center',
-                justifyContent: 'space-between',
                 p: 2,
                 cursor: 'pointer',
                 borderRadius: 4,
@@ -90,7 +87,8 @@ function ChatCard({ id, name, image, lastMessage, time }: ChatCardProps) {
                 },
             }}
         >
-            <Box sx={{ width: '25%' }}>
+            {/* Avatar section */}
+            <Box sx={{ flexShrink: 0, mr: 2, width: '20%' }}>
                 {visibleAvatars.length === 1 && (
                     <Avatar src={otherMembers[0].avatar} alt={otherMembers[0].name} sx={{ width: 50, height: 50 }} />
                 )}
@@ -111,11 +109,7 @@ function ChatCard({ id, name, image, lastMessage, time }: ChatCardProps) {
                                 key={member.id}
                                 src={member.avatar}
                                 alt={member.name}
-                                sx={{
-                                    width: 28,
-                                    height: 28,
-                                    fontSize: 12,
-                                }}
+                                sx={{ width: 28, height: 28, fontSize: 12 }}
                             />
                         ))}
 
@@ -135,28 +129,35 @@ function ChatCard({ id, name, image, lastMessage, time }: ChatCardProps) {
                         )}
                     </Box>
                 )}
-
-
             </Box>
 
-            <Box sx={{ display: 'flex', width: '75%', flexDirection: 'column' }}>
-                <Box sx={{ display: 'flex', flexDirection: 'row' }}>
+            {/* Text section */}
+            <Box sx={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column' }}>
+                <Box sx={{ display: 'flex', alignItems: 'center' }}>
                     <Typography
                         sx={{
                             fontFamily: "Ubuntu, sans-serif",
                             fontSize: '16px',
                             fontWeight: 'bold',
-                            color: 'white'
+                            color: 'white',
+                            flexShrink: 0,
                         }}
+                        noWrap
                     >
                         {name}
                     </Typography>
 
-                    <Box sx={{ display: 'flex', justifyContent: 'flex-end', flex: 1 }}>
-                        <Typography sx={{ fontFamily: "Ubuntu, sans-serif", color: '#EEEEEE', fontSize: '15px' }}>
-                            {duration}
-                        </Typography>
-                    </Box>
+                    <Typography
+                        sx={{
+                            fontFamily: "Ubuntu, sans-serif",
+                            color: '#EEEEEE',
+                            fontSize: '15px',
+                            ml: 'auto',
+                            flexShrink: 0,
+                        }}
+                    >
+                        {duration}
+                    </Typography>
                 </Box>
 
                 <Typography
@@ -165,7 +166,7 @@ function ChatCard({ id, name, image, lastMessage, time }: ChatCardProps) {
                         color: '#FBFBFB',
                         overflow: "hidden",
                         whiteSpace: "nowrap",
-                        textOverflow: "ellipsis"
+                        textOverflow: "ellipsis",
                     }}
                     noWrap
                 >
@@ -173,6 +174,7 @@ function ChatCard({ id, name, image, lastMessage, time }: ChatCardProps) {
                 </Typography>
             </Box>
         </Box>
+
     )
 }
 

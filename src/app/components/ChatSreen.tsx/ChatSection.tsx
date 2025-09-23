@@ -3,7 +3,7 @@
 import { useChatUserStore } from '@/app/store/chatUserStore'
 import { Box } from '@mui/material'
 import axios from 'axios'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import Message from './ChatSection/Message'
 
 interface MessageType {
@@ -23,15 +23,13 @@ function ChatSection() {
   const [messages, setMessages] = useState<MessageType[]>([])
   const [mounted, setMounted] = useState(false)
 
-  console.log("🔵 ChatSection render, activeRoomId =", activeRoomId)
-
-  console.log("🟣 useChatUserStore import in ChatSection =", useChatUserStore)
-
-
+  const messagesEndRef = useRef<HTMLDivElement | null>(null)
+  
 
   useEffect(() => { 
     setMounted(true) 
   }, [])
+  
 
 
   useEffect(() => {
@@ -53,6 +51,15 @@ function ChatSection() {
   }, [activeRoomId, refreshMessages])
   
 
+  useEffect(() => {
+    if (messagesEndRef.current) {
+      messagesEndRef.current.scrollIntoView({ behavior: "smooth" })
+    }
+  }, [messages])
+
+  if (!mounted) {
+    return <Box sx={{ backgroundColor: '#191919', height: '100%' }} />
+  }
 
   if (!mounted) {
     return <Box sx={{ backgroundColor: '#191919', height: '100%' }} />
@@ -92,6 +99,8 @@ function ChatSection() {
           timestamp={message.timestamp}
         />
       ))}
+      
+      <div ref={messagesEndRef} />
     </Box>
   )
 }
